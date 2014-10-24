@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tea App</title>
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
+  <style type="text/css">
+
+body#main {
+  margin: 5px 0px;
+  background: #afb2bd;
+}
+
+#device-background {
+  width: 421px;
+  height: 825px;
+  background-image: url('nexus5.png');
+  margin: 50px auto;
+}
+
+#screen {
+  position: relative;
+  left: 21px;
+  top: 65px;
+  font-family: 'Source Sans Pro', sans-serif;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+  </style>
+  <script type="text/javascript" src="d3.js"></script>
+  <script type="text/javascript" src="tea.js"></script>
+  <script type="text/javascript">
+
+var teas;
+var searchScreen;
+
+var init = function() {
+  loadData('teas.json');
+};
+
+var loadData = function(url) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var data = JSON.parse(xhr.responseText);
+    teas = new ta.Catalog(data);
+    searchScreen = new ta.SearchScreen(teas, 'device-background');
+    searchScreen.render();
+  }
+  xhr.open('GET', url);
+  xhr.send();
+};
+
+  </script>
+</head>
+<body id="main" onload="init()">
+  <div id="device-background"></div>
+</body>
+</html>
