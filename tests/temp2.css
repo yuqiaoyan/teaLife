@@ -1,0 +1,273 @@
+html, body{
+	font-family: 'Roboto', sans-serif;
+	margin: 0px 0px 0px 0px;
+	height: 100%;
+}
+
+p{
+	margin: 15 0 0 0;
+}
+
+
+
+#teaPage{ 
+	min-height: 100%;
+	width: 100%;
+	margin-bottom: -52px;
+
+}
+
+#teaPage:after{
+	content: "";
+	display:block;
+}
+
+#teaProfile{
+	width: 90%;
+	margin: 0 auto;
+	/*padding: 0px 16px 0px 16px;*/
+}
+
+#header{
+	width: 100%;
+	line-height: 42px;
+	border-bottom: 1px solid rgb(228, 227, 227);
+	text-align: center;
+	color: rgb(53,52,52);
+	font-weight: 400;
+	font-size: 24px;
+/*	background-color: #A4D33D;*/
+}
+
+.chevron {
+    display:inline-block;
+    width: .5em;
+    height: .7em;
+    position:absolute;
+    top: 18px;
+    left: 16px;
+    -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.chevron:before,
+.chevron:after {
+    display:block;
+    content:"";
+    width:0;
+    height:0em;
+    border-style:solid;
+    position:absolute;
+}
+.chevron:before {
+    right:0;
+    border-width:.4em 0 .4em .4em;
+    border-color:transparent transparent transparent black;    
+}
+.chevron:after {
+    left:0;
+    border-width:.4em 0 .4em .4em;
+    border-color:transparent transparent transparent #fff;    
+}
+
+
+#teaFactsWrapper{
+	margin-bottom: 12px;
+	background-image: url("../img/products/yunnan_pu_erh_white.jpg");
+	background-size: 100% auto; 
+
+}
+
+#teaFacts{
+	/*width: 30%;*/
+}
+
+#teaFacts > ul{
+	background-color: rgba(0,0,0,0.35);  
+	/*height: 100%;*/
+	margin: 0 0 0 0;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	/*padding: 15px 10% 15px 10%;  padding might need to be calculated */
+	/*display: table;*/
+	color: white;
+
+}
+
+#teaFacts > ul > li{
+	list-style: none;
+	/*display: table-row;*/
+	margin-bottom: 8px;
+}
+
+#teaFacts > ul > li:last-child { margin-bottom: 0 !important;}
+
+.subhead{
+	font-weight: 300;
+	font-style: italic;
+	font-size: 14px;
+	display: list-item;
+	-webkit-margin-before: 0em;
+		-webkit-margin-after: 0em;
+
+
+}
+
+.teaValue{
+	font-weight: 500;
+	/*font-size: 50px;*/
+	font-size: 20px;
+
+}
+
+#degrees::after {
+  content: "\00b0";
+}
+
+#teaDescription{
+	font-size: 14px;
+}
+
+
+
+.buy-link{
+	display: block;
+	/*padding: 8px 0px 8px 16px;*/
+	text-decoration: none;
+	width: auto;
+	color: #50B5CC;
+	font-size: 14px;
+	margin-bottom: 12px;
+}
+
+.button-color{
+	color: rgb(253, 253, 253);
+/*	color: rgb(244, 243, 243);  soft white */
+	/*background-color: #18C704;*/
+	background-color: #7CC352;
+}
+
+
+
+
+#timerButton, #teaPage:after{
+	/* SET THE BUTTON TO THE BOTTOM OF THE SCREEN */
+	width: 100%;
+	/*position: absolute;*/
+	height: 52px;
+	/*top: 648px;*/
+	/*border: 1px solid grey;*/
+}
+
+#timerButton button{
+	text-align: center;
+	font-weight: 300;
+	font-size: 28px;
+	letter-spacing: 1.5px;
+
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px 0px 10px 0px;
+	border: none;
+
+}
+
+#timeCover{
+	background-color: rgba(216,216,216,.93);
+	display: block;
+	height: 100%;
+	z-index:2;
+	width: 100%;
+}
+
+#time{
+	background-color: white;
+	border-top: 2px solid #18C704;
+	
+	width: 100%;
+	height: 70%;
+	z-index: 3;
+	position: absolute;
+	top: 30%;
+
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+	-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+	box-shadow: 0 2px 7px black;
+	
+}
+
+.bgPosition{
+	position: absolute;
+	top: 0px;
+	opacity: .7;
+  	/*left: 21px;
+  	top: 65px;*/
+}
+
+.flexBase{
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: -moz-flex;
+
+}
+
+#circleWrapper{
+
+
+	justify-content: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-webkit-align-items: center;
+	height: 100%;
+}
+
+#circle{
+	text-align: center;
+
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-readius: 100%;
+
+	color: white;
+	background-color: #7CC352;
+
+	margin: auto;
+
+	justify-content: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-webkit-align-items: center;
+}
+
+.timerText{
+	font-size: 72px;
+	font-weight: 300;
+	margin: auto;
+
+}
+
+#timeWrapper{
+	margin: auto;
+}
+
+.circleLink{
+	margin: auto;
+	font-weight: 100;
+	opacity: .9;
+	font-size: 14px;
+}
+
+#ic_close_24px{
+
+	position: absolute;
+	top: 2%;
+	left: 90%;
+
+	fill: #7CC352;
+	fill-opacity: .8;
+
+	/*display: none;*/
+
+}
+

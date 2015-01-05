@@ -1,0 +1,56 @@
+		.animateTagToSearch{
+			-webkit-animation-name: fadeIn;
+			-webkit-animation-duration: 1s;
+			-moz-animation-name: fadeIn;
+			-moz-animation-duration: 1s;
+		}
+
+		
+		@-webkit-keyframes fadeIn {
+			  from {
+			    /*opacity: 0; */
+			    margin-left:0;
+			  }
+
+			  to {
+			    /*opacity: .8;*/
+			    margin-left: 3%;
+			  }
+		}
+
+		@-moz-keyframes fadeIn {
+			  from {
+			    opacity: 0; 
+			  }
+
+			  to {
+			    opacity: .8;
+			  }
+		}
+
+		.moveContentToTop{
+			-webkit-animation-name: toTop;
+			-webkit-animation-duration: 1s;
+			-moz-animation-name: toTop;
+			-moz-animation-duration: 1s;
+		}
+
+		@-webkit-keyframes toTop {
+			  from {
+			    top: 30%; 
+			  }
+
+			  to {
+			    top: 0;
+			  }
+		}
+
+		@-moz-keyframes toTop {
+			  from {
+			    top: 30%; 
+			  }
+
+			  to {
+			    top: 0; 
+			  }
+		}

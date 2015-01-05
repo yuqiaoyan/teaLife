@@ -1,0 +1,117 @@
+- run renderFilters
+- rest is handled by onClick
+
+
+Create a new Query
+
+$(".tag").click(
+	- create a tag object based on the clicked item
+	- add a tag to the query object to do a search
+
+$(".searchTag").click
+	- remove a tag to the query object
+
+If the user enters, a query
+	ta.Catalog.search(Query)
+	which will return a list of Teas for me to render the list.
+
+renderSearchList(teasArray){
+//Given a list of teas, render each tea in its own li
+
+	- render summary line -> requires teasArray.length
+	- embed HTML data to each li [name, url, category, time, description] OR [array number of the tea in the catalog] so I can lay out the tea page later
+	- onClick 
+		- call renderTeaPage(teaDataObj) to update the tea page values
+		- 
+}
+
+renderTeaPageUpdates(teaDataObj){
+	- update the header title
+	- update the teaValue with the teaData
+	- update the buy-link
+	- update the teaDescription
+
+}
+
+TODOS:
+
+upload code to github
+
+test the site on ipad
+	- update children in searchInput and Tag need to flex vertically centered?
+
+add a teaPage object to deal with static UI binding
+	teaPage = {};
+	currTea = (tea)?
+
+	//method 
+	setPage(tea) - updates the teaPage with the tea, updates curr tea
+	getPage()
+
+add search icon
+fix chevron positioning - flex to vertically center
+
+add try tea of the day div
+	font-size: same as tea tag
+	bg - same as tea facts coloring
+	color - white
+	position: absolute
+
+
+
+
+
+
+
+
+
+
+____________________________________
+GLOBAL VARIABLES
+searchInputHeight
+searchTagHeight
+animationDuration
+
+-------------------------
+HELPER FUNCTIONS for onClick
+
+insertTagToSearch($tag)
+
+animateToTop($original)
+
+countdown(timerMins)
+
+--------------------------
+ONCLICKS
+
+tag
+flexRow (i.e. teaRow)
+
+__________________________
+tea.js
+
+TA CLASSES
+
+Tea - container data for one tea
+Tag - used to identify the tag in a query
+Query - list of tags
+
+ * Searches the catalog for teas that match the given query.
+ta.Catalog.prototype.search = function(query) {
+
+ * Finds the tea with the given name.
+ta.Catalog.prototype.find = function(teaName) {
+
+renderFilters($FilterDiv, listFilters,classTag) - Renders search filters based on array list of filters
+__________________________
+
+DATA
+Source URL:
+"www.adagio.com" + "teas.url"
+
+//TODO - UPDATE THE URL in teas.json to have the full URL
+
+Price is set to CENTS per cup??
+
+
+

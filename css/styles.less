@@ -1,0 +1,230 @@
+
+/* position: relative -> releative to its normal position
+position: absolute -> relative to its first non static parent */
+
+@baseFontSize: 12px;
+@smallFontSize: 10px;
+@medFontSize: 14px;
+@largeFontSize: 16px;
+
+@baseMarginSize: 12px;
+@smallMarginSize: 4px;
+
+html, body{
+	font-size: @baseFontSize;
+	font-family: 'Roboto', sans-serif;
+	margin: 0px 0px 0px 0px;
+	overflow: hidden;
+	}
+
+#searchWrapper{
+	width: 100%;
+	height: 70%;
+
+	position: absolute;
+	top: 30%;
+	background-color: white;
+	border-top: solid 2px rgb(216,216,216);
+
+}
+
+#searchView{
+	width: 90%;
+	height: 100%;
+	/*height: 400px;*/
+	margin-left: auto;
+	margin-right: auto;
+
+	
+}
+
+.flexBase{
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: -moz-flex;
+
+}
+
+.flexColumn{
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+
+}
+
+.flexColCenter{
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	justify-content: center;
+	-webkit-justify-content: center;
+
+}
+
+.teaRow{
+
+	flex-direction: row;
+	-webkit-flex-direction: row;
+
+}
+
+
+.unflex{
+	display: block;
+}
+
+.unflex > #searchInput,#categoryFilter{
+	margin-top: @baseMarginSize;
+}
+
+.teaResult{
+	width: 70%;
+	margin-left: @baseMarginSize;
+	margin-bottom: @baseMarginSize;
+	// overflow: hidden;
+}
+
+.teaShortDescription{
+	font-size: @baseFontSize;
+	line-height: @baseFontSize*1.25;
+	margin-top: @smallMarginSize;
+
+}
+
+.teaResult > p{
+	margin: 0px 0px 0px 0px;
+}
+
+
+
+.teaResultName{
+	font-size: @medFontSize;
+}
+
+.teaResultPrice{
+	font-size: @smallFontSize;
+	color: #7CC352;
+}
+
+
+
+.subheader{
+	font-size: @largeFontSize;
+
+}
+#searchInput{
+	height: 29px;
+	width: 100%;
+	color: #535456;
+	background-color: #d8d8d8;
+	border-radius: .5em;
+	text-align: center;
+	line-height: 29px;
+	font-size: @medFontSize;
+}
+
+#categoryFilter{
+	text-align: center;
+	/*background-color: blue;*/
+
+}
+
+#flavorFilter{
+	color: #a919ff;
+	text-align: center;
+	/*margin-bottom: 12px;*/
+}
+
+.row{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-bottom: 16px;
+}
+
+.tag{
+	color: #fdfdfd;
+	padding-left: 12px;
+	padding-right: 12px;
+
+	border-radius: .4em;
+
+	display: inline-block;
+	margin-right: 6%;
+	margin-bottom: 4%;
+
+
+}
+
+.tag span{
+	opacity: 0.8;
+}
+
+.tagText{
+	margin-right: 14px;
+	display: inline-block;
+	transform: translateY(-10%);
+	font-size: @medFontSize;
+	font-weight: 300;
+
+}
+
+
+.category{
+	background-color: #009444;
+}
+
+#categoryFilter .row:last-child{
+	margin-bottom: 0px;
+}
+
+.flavor{
+	background-color: #a919ff;
+}
+
+.addIcon{
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: 100;
+}
+
+.searchTag{
+	height: 55%;
+	display: inline-block;
+	margin-left: 3%;
+	margin-top: 2%;
+	margin-right: 0%;
+	margin-bottom: 0%;
+
+	padding-left: 4px;
+	padding-right: 4px;
+	border-radius: .2em;
+}
+
+.searchTagText{
+	transform: translateY(-30%);
+	font-size: @smallFontSize;
+	font-weight: 300;
+	margin-right: 8px;
+	display:inline-block;
+}
+
+.searchRemoveIcon{
+	font-size: @baseFontSize;
+	line-height: @baseFontSize;
+	font-weight: 100;
+	display:inline-block;
+	transform: translateY(-60%);
+}
+
+hr{
+	margin-top: @baseMarginSize;
+	margin-bottom: @baseMarginSize;
+	color: #d8d8d8;
+	opacity: .8;
+}
+
+#teaOfDay > img{
+	width: 100%;
+}

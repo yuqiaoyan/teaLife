@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>animate demo</title>
+  <style>
+  div {
+    background-color: #bca;
+    width: 200px;
+    height: 1.1em;
+    text-align: center;
+    border: 2px solid green;
+    margin: 3px;
+    font-size: 14px;
+  }
+  button {
+    font-size: 14px;
+  }
+  </style>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+ 
+<button id="go1">&raquo; Animate Block1</button>
+<button id="go2">&raquo; Animate Block2</button>
+<button id="go3">&raquo; Animate Both</button>
+<button id="go4">&raquo; Reset</button>
+<div id="block1">Block1</div>
+<div id="block2">Block2</div>
+ 
+<script>
+$( "#go1" ).click(function() {
+  $( "#block1" )
+    .animate({
+      width: "90%"
+    }, {
+      queue: false,
+      duration: 3000
+    })
+    .animate({ fontSize: "24px" }, 1500 )
+    .animate({ borderRightWidth: "15px" }, 1500 );
+});
+ 
+$( "#go2" ).click(function() {
+  $( "#block2" )
+    .animate({ width: "90%" }, 1000 )
+    .animate({ fontSize: "24px" }, 1000 )
+    .animate({ borderLeftWidth: "15px" }, 1000 );
+});
+ 
+$( "#go3" ).click(function() {
+  $( "#go1" ).add( "#go2" ).click();
+});
+ 
+$( "#go4" ).click(function() {
+  $( "div" ).css({
+    width: "",
+    fontSize: "",
+    borderWidth: ""
+  });
+});
+</script>
+ 
+</body>
+</html>

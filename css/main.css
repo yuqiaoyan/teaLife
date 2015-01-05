@@ -1,0 +1,168 @@
+/* position: relative -> releative to its normal position
+position: absolute -> relative to its first non static parent */
+html,
+body {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  margin: 0px 0px 0px 0px;
+  overflow: hidden;
+}
+#searchWrapper {
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  top: 30%;
+  background-color: white;
+  border-top: solid 2px #d8d8d8;
+}
+#searchView {
+  width: 90%;
+  height: 100%;
+  /*height: 400px;*/
+  margin-left: auto;
+  margin-right: auto;
+}
+.flexBase {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -moz-flex;
+}
+.flexColumn {
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+}
+.flexColCenter {
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  justify-content: center;
+  -webkit-justify-content: center;
+}
+.teaRow {
+  flex-direction: row;
+  -webkit-flex-direction: row;
+}
+.unflex {
+  display: block;
+}
+.unflex > #searchInput,
+#categoryFilter {
+  margin-top: 12px;
+}
+.teaResult {
+  width: 70%;
+  margin-left: 12px;
+  margin-bottom: 12px;
+}
+.teaShortDescription {
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 4px;
+}
+.teaResult > p {
+  margin: 0px 0px 0px 0px;
+}
+.teaResultName {
+  font-size: 14px;
+}
+.teaResultPrice {
+  font-size: 10px;
+  color: #7CC352;
+}
+.subheader {
+  font-size: 16px;
+}
+#searchInput {
+  height: 29px;
+  width: 100%;
+  color: #535456;
+  background-color: #d8d8d8;
+  border-radius: .5em;
+  text-align: center;
+  line-height: 29px;
+  font-size: 14px;
+}
+#categoryFilter {
+  text-align: center;
+  /*background-color: blue;*/
+}
+#flavorFilter {
+  color: #a919ff;
+  text-align: center;
+  /*margin-bottom: 12px;*/
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 16px;
+}
+.tag {
+  color: #fdfdfd;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: .4em;
+  display: inline-block;
+  margin-right: 6%;
+  margin-bottom: 4%;
+}
+.tag span {
+  opacity: 0.8;
+}
+.tagText {
+  margin-right: 14px;
+  display: inline-block;
+  transform: translateY(-10%);
+  font-size: 14px;
+  font-weight: 300;
+}
+.category {
+  background-color: #009444;
+}
+#categoryFilter .row:last-child {
+  margin-bottom: 0px;
+}
+.flavor {
+  background-color: #a919ff;
+}
+.addIcon {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 100;
+}
+.searchTag {
+  height: 55%;
+  display: inline-block;
+  margin-left: 3%;
+  margin-top: 2%;
+  margin-right: 0%;
+  margin-bottom: 0%;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: .2em;
+}
+.searchTagText {
+  transform: translateY(-30%);
+  font-size: 10px;
+  font-weight: 300;
+  margin-right: 8px;
+  display: inline-block;
+}
+.searchRemoveIcon {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 100;
+  display: inline-block;
+  transform: translateY(-60%);
+}
+hr {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: #d8d8d8;
+  opacity: .8;
+}
+#teaOfDay > img {
+  width: 100%;
+}
