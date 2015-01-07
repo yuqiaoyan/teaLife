@@ -21,6 +21,7 @@ body {
   /*height: 400px;*/
   margin-left: auto;
   margin-right: auto;
+  margin-top: 2%;
 }
 .flexBase {
   display: flex;
@@ -34,15 +35,10 @@ body {
   justify-content: space-around;
   -webkit-justify-content: space-around;
 }
-.flexColCenter {
-  flex-direction: column;
-  -webkit-flex-direction: column;
-  justify-content: center;
-  -webkit-justify-content: center;
-}
 .teaRow {
   flex-direction: row;
   -webkit-flex-direction: row;
+  margin-bottom: 12px;
 }
 .unflex {
   display: block;

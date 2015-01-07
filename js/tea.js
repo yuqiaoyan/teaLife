@@ -566,7 +566,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
               return "" +
                 "<li class = 'teaRow flexBase' data-idx='" + idx + "'>" +
-               "<img src = '" +"/tea_app" + aTea.thumbUrl + "'" + "class='thumbnail'>" +
+               "<img src = '"  + aTea.thumbUrl + "'" + "class='thumbnail'>" +
                "<div class = 'teaResult'>"+
                "  <p class = 'teaResultName'>" + aTea.name + "</p>"+
                "  <p class = 'teaResultPrice'> 10 &cent </p>"+
@@ -752,7 +752,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
           }
 
           updateTeaResults();
-          
+
           if($("#categoryFilter").is(':visible') == true){
               $("#flavorFilter").removeClass("addMarginTop");
             }

@@ -1,0 +1,189 @@
+body{
+	margin: 5px 0px;
+  	background: #afb2bd;
+	font-family: 'Roboto', sans-serif;
+}
+
+p{
+	margin: 16px 0 0 0;
+}
+
+
+#profileWrapper{ 
+	background-color: white;
+	width: 376px;
+	height: 686px;
+	position: relative;
+  	left: 21px;
+  	top: 65px;
+
+
+}
+
+#content{
+	padding: 0px 16px 0px 16px;
+}
+
+#header{
+	width: 100%;
+	line-height: 54px;
+	border-bottom: 1px solid rgb(228, 227, 227);
+	text-align: center;
+	color: rgb(53,52,52);
+	font-weight: 400;
+	font-size: 28px;
+/*	background-color: #A4D33D;*/
+}
+
+.chevron {
+    display:inline-block;
+    width: .4em;
+    height: .6em;
+    position:absolute;
+    top: 25px;
+    left: 16px;
+    -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.chevron:before,
+.chevron:after {
+    display:block;
+    content:"";
+    width:0;
+    height:0em;
+    border-style:solid;
+    position:absolute;
+}
+.chevron:before {
+    right:0;
+    border-width:.4em 0 .4em .4em;
+    border-color:transparent transparent transparent black;    
+}
+.chevron:after {
+    left:0;
+    border-width:.4em 0 .4em .4em;
+    border-color:transparent transparent transparent #fff;    
+}
+.chevron.skinny {
+    width:.4em;
+}
+.chevron.fat {
+    width:.6em;
+}
+
+#device-background {
+  width: 421px;
+  height: 825px;
+  background-image: url('../nexus5.png');
+  margin: 50px auto;
+}
+
+#teaFactsWrapper{
+	margin-top: 20px;
+	/*margin-bottom: 16px;*/
+	background-image: url("../images5/products/yunnan_pu_erh_white.jpg");
+	background-size: 100% auto; 
+
+}
+
+#teaFacts{
+	width: 80%;
+	flex-basis: auto;
+}
+
+#thumbnail{
+	width: 100%;
+}
+
+.flex{
+	width: auto;
+	/*flexbox setup */
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+
+	display: flex;
+	flex-direction: row;
+}
+
+#teaThumbnailWrapper{
+	flex-shrink: 1;
+	text-align: center; 
+}
+
+.buy-button{
+	display: block;
+	padding: 8px 0px 8px 0px;
+	text-decoration: none;
+	text-align: center;
+	width: auto;
+}
+
+.button-color{
+	color: rgb(253, 253, 253);
+/*	color: rgb(244, 243, 243);  soft white */
+	background-color: #18C704;
+}
+
+#teaFacts > ul{
+	height: 100%;
+	margin: 0 0 0 0;
+	padding-left: 0px;
+	display: table;
+}
+
+#teaFacts > ul > li{
+	list-style: none;
+	display: table-row;
+	/*margin-bottom: 8px;	*/
+}
+
+#teaFacts > ul > li > :last-child { margin-bottom: 0 !important;}
+
+.subhead{
+	font-weight: 300;
+	font-style: italic;
+	display: list-item;
+	-webkit-margin-before: 0em;
+		-webkit-margin-after: 0em;
+
+
+}
+
+.teaValue{
+	font-weight: 500;
+	font-size: 20px;
+
+}
+
+#degrees::after {
+  content: "\00b0";
+}
+
+#teaDescription{
+	font-size: 1.15em;
+}
+
+
+
+
+#timerButton{
+	/* SET THE BUTTON TO THE BOTTOM OF THE SCREEN */
+	width: 100%;
+	position: absolute;
+	top: 648px;
+	/*border: 1px solid grey;*/
+}
+
+#timerButton button{
+	text-align: center;
+	font-weight: 300;
+	font-size: 28px;
+	letter-spacing: 1.5px;
+
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px 0px 10px 0px;
+	border: none;
+
+}

@@ -14,7 +14,7 @@
 	<!-- LA SCRIPTTT -->
 
 	<script src = 'js/jquery.js'> </script>
-	<script src='js/xdate.js'> </script>
+	<!-- <script src='js/xdate.js'> </script> -->
 	<script src='js/helpers.js'> </script>
 	<script src='js/tea.js'> </script>
 	<script src='js/main.js'> </script>
@@ -51,9 +51,21 @@
 
 	#teaPage{
 		position: absolute;
+		background-color: white;
 		display: none;
 		top: 0px;
 		height: 100%;
+	}
+
+	#brand{
+		position: absolute;
+		top: 5%;
+		font-size: 32px;
+		color: rgba(4, 166, 78, 1);
+		/*background-color: rgba(4, 166, 78, 0.79);*/ /* green */
+		background-color: rgba(255,255,255,0.55);
+		padding-left: 5%;
+		padding-right: 2%;
 	}
 
 	.units{
@@ -139,7 +151,9 @@
 	}
 
 	#teaFacts > ul{
-		background-color: rgba(0,0,0,0.35);  
+		/*background-color: rgba(0,0,0,0.35);  */ /* black */
+		background-color: rgba(124, 195, 82, 0.85);
+		/*background-color: rgba(4, 166, 78, 0.79);*/ /*brand green */
 		/*height: 100%;*/
 		margin: 0 0 0 0;
 		padding-top: 12px;
@@ -170,7 +184,7 @@
 	}
 
 	.teaValue{
-		font-weight: 500;
+		font-weight: 400;
 		/*font-size: 50px;*/
 		font-size: 18px;
 
@@ -348,6 +362,48 @@
 		background-color: white;
 	}
 
+	.filterAlignment{
+		margin-left: auto;
+		margin-right: auto;
+		width: 99%;
+	}
+
+/*	@media all and (min-width: 450px){
+		body{
+			background-color: #ddd;
+		}
+
+		#appWrapper{
+			width: 450px;
+			height: 660px;
+			position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #ddd;
+			border: 2px solid black;
+			top: 65px;
+			overflow: auto;
+
+		}
+
+		#searchWrapper{
+			height: 60%;
+		}
+
+		header{
+			width: 450px;
+			top: 65px;
+
+		}
+
+		#teaContent{
+			height: 490px;
+		}
+
+	}*/
+
+
+
 
 
 </style>
@@ -355,132 +411,109 @@
 
 
 <body>
-	<div id ="teaOfDay"> 
-		<img src="img/products/jasmine_silver_needle.jpg">
-	</div>
-	
-	<div id="searchWrapper">
-	<!-- Vertically distribute the searchbox, category filter, and flavor filter -->
-		<div id = "searchView" class="flexColumn flexBase"> 
-			<div id="searchInput" >
-
-				<span id="searchHint" class="subheader"> Search for a Tea </span>
-			</div>
-			<div id="categoryFilter">
-
-
-
-			</div>
-			<div id="flavorFilter">
-				<span id="flavorTitle" class = "subheader"> Flavor Filter </span>
-				<hr>
-			</div>
-			<div id="resultsWrapper">
-				<div id = "resultSummary"> </div>
-				<ul id = "results">
-					<!-- <li class = "teaRow flexBase">
-						<img src = "img/products_index/ali_shan.jpg" class="thumbnail">
-						<div class = "teaResult">
-							<p class = "teaResultName"> Ali Shan </p>
-							<p class = "teaResultPrice"> 10 &cent </p>
-							<div class = "teaShortDescription"> Naturally sweet white tea from the Fujian province in China. Flowery peach-nectar aroma, juicy and very ripe flavor, slightly dry finish. peach... THIS IS A TEST WHERE DOES THIS END????? </div>
-						</div>
-					</li>
-					<li class="teaRow flexBase">
-						<img src = "img/products_index/ali_shan.jpg" class="thumbnail">
-						<div class = "teaResult">
-							<p class = "teaResultName"> Ali Shan </p>
-							<p class = "teaResultPrice"> 10 &cent </p>
-							<div class = "teaShortDescription"> Naturally sweet white tea from the Fujian province in China. Flowery peach-nectar aroma, juicy and very ripe flavor, slightly dry finish
-peach... </div>
-						</div>
-					</li>
-					<li class="teaRow flexBase">
-						<img src = "img/products_index/ali_shan.jpg" class="thumbnail">
-						<div class = "teaResult">
-							<p class = "teaResultName"> Ali Shan </p>
-							<p class = "teaResultPrice"> 10 &cent </p>
-							<div class = "teaShortDescription"> Naturally sweet white tea from the Fujian province in China. Flowery peach-nectar aroma, juicy and very ripe flavor. </div>
-						</div>
-					</li> -->
-				</ul>
-
-			</div>
+	<div id="appWrapper">
+		<div id ="teaOfDay"> 
+			<div id="brand"> tea  Life </div>
+			<img src="img/products/jasmine_silver_needle.jpg">
 		</div>
-	</div>
+		
+		<div id="searchWrapper">
+		<!-- Vertically distribute the searchbox, category filter, and flavor filter -->
+			<div id = "searchView" class="flexColumn flexBase"> 
+				<div id="searchInput" >
 
-	<div id = "teaPage">
-		<header> 
-			<span class = 'chevron'></span>
-			<span class = "headerTitle"> Yunnan Tea </span>
-		</header>
+					<span id="searchHint" class="subheader"> Search for a Tea </span>
+				</div>
+				<div id="categoryFilter">
+	<!-- 				<div id="categoryFilterContent" class = "filterAlignment">
+					</div> -->
 
-		<div id = "teaContent">
-			<div id = "teaFactsWrapper">
-					<div id = "teaFacts">
 
-						<ul>
-							<li>
-								<span class = "subhead"> Type </span>
-								<span class = "teaValue"> Black </span>
-								
-							</li>
-							<li>
-								<span class = "subhead"> Temp </span>
-								<span id = "degrees" class = "teaValue"> 212 </span>
-							</li>
-							<li>
-								<span class = "subhead"> Time </span>
-								
-								<span class = "teaValue"> 2:00 </span>
-							</li>
-	<!-- 							<li>
-								<span class = "subhead"> Steeps </span>
-								
-							</li> -->
-							<!-- <span class = "teaValue"> 3 </span> -->
-						</ul>
 
-					</div>
-
-						
-			</div>
-				
-
-				
-			<div id = "teaProfile">
-				<a href class='buy-link'> Buy Yunnan Tea Here </a>				
-				
-				<div id = "teaDescription"> 
-				A black tea from the Yunnan province of China, the birthplace of tea itself. Much of the tea in this southern province is a large leaf variety. Mountains veiled in mist, with clean water and rich soil form ideal growing conditions and contribute to the unique flavor. Our Yunnan Noir is a hand-rolled tea, with leaves tightly curled into a 'black snail' shape. The aroma is sweet with hints of honey and spice.
-
-				A black tea from the Yunnan province of China, the birthplace of tea itself. Much of the tea in this southern province is a large leaf variety. Mountains veiled in mist, with clean water and rich soil form ideal growing conditions and contribute to the unique flavor. Our Yunnan Noir is a hand-rolled tea, with leaves tightly curled into a 'black snail' shape. The aroma is sweet with hints of honey and spice.
-
-					A black tea from the Yunnan province of China, the birthplace of tea itself. Much of the tea in this southern province is a large leaf variety. Mountains veiled in mist, with clean water and rich soil form ideal growing conditions and contribute to the unique flavor. Our Yunnan Noir is a hand-rolled tea, with leaves tightly curled into a 'black snail' shape. The aroma is sweet with hints of honey and spice.
+				</div>
+				<div id="flavorFilter">
+					<span id="flavorTitle" class = "subheader"> Flavor Filter </span>
+					<hr>
+	<!-- 				<div id="flavorFilterContent" class = "filterAlignment">
+					</div> -->
+				</div>
+				<div id="resultsWrapper">
+					<div id = "resultSummary"> </div>
+					<ul id = "results">
+					</ul>
 
 				</div>
 			</div>
-
-				
-
-			<!-- <div id = "timeCover" class = "bgPosition"></div>
-			<div id = "time">timer position</div> -->
-
-		</div>
-		<div id="timerButton">
-				<button class='button-color'> START TIMER </button>
 		</div>
 
-		<div id = "timeCover" class = "bgPosition"></div>
-		<div id = "time">
-			<svg width="24" height="24" viewBox="0 0 24 24" id="ic_close_24px" y="240"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-			<div id = "circleWrapper" class="flexBase flexChildCenter">
-				<div id = "circle" class="flexBase flexChildCenter">
-					<div id = "timerWrapper">
-						<div class = "timerText">
-						
+		<div id = "teaPage">
+			<header> 
+				<span class = 'chevron'></span>
+				<span class = "headerTitle"> Yunnan Tea </span>
+			</header>
+
+			<div id = "teaContent">
+				<div id = "teaFactsWrapper">
+						<div id = "teaFacts">
+
+							<ul>
+								<li>
+									<span class = "subhead"> Type </span>
+									<span class = "teaValue"> Black </span>
+									
+								</li>
+								<li>
+									<span class = "subhead"> Temp </span>
+									<span id = "degrees" class = "teaValue"> 212 </span>
+								</li>
+								<li>
+									<span class = "subhead"> Time </span>
+									
+									<span class = "teaValue"> 2:00 </span>
+								</li>
+		<!-- 							<li>
+									<span class = "subhead"> Steeps </span>
+									
+								</li> -->
+								<!-- <span class = "teaValue"> 3 </span> -->
+							</ul>
+
 						</div>
-						<div class = "circleLink"> reset </div>
+
+							
+				</div>
+					
+
+					
+				<div id = "teaProfile">
+					<a href class='buy-link'> Buy Yunnan Tea Here </a>				
+					
+					<div id = "teaDescription"> 
+
+					</div>
+				</div>
+
+					
+
+				<!-- <div id = "timeCover" class = "bgPosition"></div>
+				<div id = "time">timer position</div> -->
+
+			</div>
+			<div id="timerButton">
+					<button class='button-color'> START TIMER </button>
+			</div>
+
+			<div id = "timeCover" class = "bgPosition"></div>
+			<div id = "time">
+				<svg width="24" height="24" viewBox="0 0 24 24" id="ic_close_24px" y="240"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+				<div id = "circleWrapper" class="flexBase flexChildCenter">
+					<div id = "circle" class="flexBase flexChildCenter">
+						<div id = "timerWrapper">
+							<div class = "timerText">
+							
+							</div>
+							<div class = "circleLink"> reset </div>
+						</div>
 					</div>
 				</div>
 			</div>

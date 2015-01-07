@@ -3,7 +3,7 @@ var teaQuery = new ta.Query();
 
 var adjustViewport = function() {
   var ww = Math.min($(window).width(), window.screen.width);
-  var mw = 400;
+  var mw = 450;
   var ratio =  ww / mw;
   $('#viewport').attr('content', 'width=' + mw +
       ', initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=no');
