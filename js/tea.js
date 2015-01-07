@@ -523,7 +523,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
     var searchTagHeight = searchInputHeight*.55;
     var tagHeight = $(".tag").height();
     var thumbnailHeight = .3*$(window).width(); //will need a generalized solution for different sized source tea images
-    var maxWords = 18;
+    var maxWords = 20;
     var maxDescriptionChars = 100;
 
     //tuning for animations
@@ -532,11 +532,15 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
     //create an empty query
     var teaQuery = new ta.Query();
-    // var tagsArrays = teas.getAvailableTags 
+    
 
     //attach onClick functions for tags, teaRows, timer, chevron, etc
+    
     (function(){
-      function generateTeaRowHTML(aTea){
+
+        
+
+      function generateTeaRowHTML(aTea, idx){
               var shortDescriptionIDX = aTea.description.indexOf(".");
               var shortDescription = aTea.description; //set to first sentence
               var numWords = shortDescription.split(" ");
@@ -561,7 +565,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
               }
 
               return "" +
-                "<li class = 'teaRow flexBase'>" +
+                "<li class = 'teaRow flexBase' data-idx='" + idx + "'>" +
                "<img src = '" +"/tea_app" + aTea.thumbUrl + "'" + "class='thumbnail'>" +
                "<div class = 'teaResult'>"+
                "  <p class = 'teaResultName'>" + aTea.name + "</p>"+
@@ -575,7 +579,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
                     //get all the tags from $FilterDiv
 
                     var tagEles = $FilterDiv.children(".tag");
-                    for(t in tagEles){
+                    for(var t = 0; t < tagEles.length; t++){
                       var isRemaining = false;
                       var tagName = tagEles[t].getAttribute('data-name');
                       for(r in remainingTags){
@@ -595,6 +599,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
                     $FilterDiv.show();
                 }
                 else{
+
                   $FilterDiv.hide();
                 }
         }
@@ -607,10 +612,13 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
             //append tea results to #results
             $("#resultSummary").html(teaResults.length + " teas match your taste");
 
+            $("#results").html("");
+
             
 
-            for(i in teaResults){
-              $("#results").append(generateTeaRowHTML(teaResults[i]));
+            for(var i = 0; i < teaResults.length; i++){
+              var teaRowLi = $("#results").append(generateTeaRowHTML(teaResults[i],i));
+              // teaRowLi.setAttribute('data-idx',i); //the index of where it exists in the rea result
             }
 
             //find the remaining tags to re render
@@ -620,6 +628,12 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
             renderTagUpdate($("#categoryFilter"), remainingTagResults.categories, "category")
             renderTagUpdate($("#flavorFilter"), remainingTagResults.flavors, "flavor")
+
+            //attach click handlers to new tea results
+            $(".teaRow").click(function(){
+              var teaRowEle = $(this);
+              helpers.renderTeaPage(teaRowEle[0],teaResults);
+            });
 
         }
 
@@ -642,6 +656,10 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
               $("#searchWrapper").css('top',"0");
               $("#searchWrapper").css('border-top',"none");
             })
+            $("#searchWrapper").height("100%");
+            $("#searchWrapper").css("overflow","auto");
+ 
+
 
             $("#searchInput").append($(this));
             $(this).addClass("searchTag");
@@ -660,7 +678,9 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
             teaQuery.addTag(temp);
 
             
-            updateTeaResults();
+            
+            
+            
 
           }
           //for all other clicks
@@ -688,7 +708,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
               teaQuery.addTag(temp);
               
               //remove the value from the CategoryFilter
-              updateTeaResults();
+              // updateTeaResults();
               
 
             }
@@ -720,7 +740,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
 
               animateTag($(this), searchTagAnimationProperties, removeTagFromSearch, tagTextAnimationProperties);
-              updateTeaResults(tagData);
+              // updateTeaResults();
 
               //if we are removing the last tag, return to defaultSearch View
 
@@ -730,6 +750,16 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
 
           }
+
+          updateTeaResults();
+          
+          if($("#categoryFilter").is(':visible') == true){
+              $("#flavorFilter").removeClass("addMarginTop");
+            }
+            else{
+              $("#flavorFilter").addClass("addMarginTop");
+            }
+
 
 
 
@@ -795,75 +825,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
             temp.children(":first").animate(textAnimationProperties, animationLongDuration);
         }
 
-        //maintains and updates tea page UI
-        var teaPage = {
-          currTea: null,
-          set:function(tea){
-            currTea = tea;
-
-            var steepInfoObj = helpers.parseSteepInfo(tea.steepInfo)
-            var steepTime = steepInfoObj.parsedSteepTime;
-            var steepDegrees = steepInfoObj.parsedSteepDegrees;
-
-            var $teaFacts = $("#teaFacts ul li span:nth-child(2)");
-
-            $teaFacts[0].innerHTML = currTea.category;
-            $teaFacts[1].innerHTML = steepDegrees;
-            $teaFacts[2].innerHTML = steepTime;
-
-            //TODO UPDATE THE REST OF THE TEAPAGE CONTENT
-
-
-          },
-          get:function(){
-            return(currTea);
-          }
-        };        
-
-
-        $(".teaRow").click(function(){
-          var windowHeight = window.innerHeight;
-          $("html").height(windowHeight);
-
-          $("#searchWrapper").hide();
-          $("#teaPage").show();
-
-          //update tea data on page
-          var teaData = {
-            name: "Blue Moon",
-            category: "Green",
-            url: "www",
-            imageUrl: "/images5/products/earl_grey_bravo.jpg",
-            thumbUrl: "/images5/products_index/earl_grey_bravo.jpg",
-            description: "blah blah",
-            steepInfo: "Steep at 212&deg; for 2-3 minutes.",
-            score: 1
-          }
-
-          var tempTea = new ta.Tea(teaData);
-          teaPage.set(tempTea);
-
-          //update layout values to fit new content
-          var headerHeight = $("header").height();
-          var footerHeight = $("#timerButton").height();
-
-          $("#teaContent").height(windowHeight - headerHeight - footerHeight - 12);
-          $("#teaContent").css("margin-top",headerHeight);
-
-          
-          //set the tea width
-          var teaFactsPaddingNum = $("body").width()*0.05 
-          var teaFactsPadding = teaFactsPaddingNum + "px";
-          $("#teaFacts ul").css("padding-left", teaFactsPadding)
-          $("#teaFacts ul").css("padding-right", teaFactsPadding)
-          $("#teaContent").show();
-          var contentWidth = $(".teaValue").width();
-          $("#teaFacts").width(teaFactsPaddingNum*2 + contentWidth);
-
-
-          
-
-        });
+             
 
         
 
@@ -877,8 +839,21 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
           $("#timeCover").show();
           $("#time").show();
-          $(".timerText").html("3:00");
-          helpers.countdown(3);
+
+          var steepTime = $("#timerButton").data("time");
+          var countdownString = steepTime + ":00"; 
+          $(".timerText").html(countdownString);
+
+          $(".circleLink").click(function(){
+            $(".timerText").html(countdownString);
+            console.log("+resetLink");
+            clearInterval(counter);
+            helpers.countdown(steepTime);
+          });
+
+          helpers.countdown(steepTime);
+
+
           
           
           
@@ -887,6 +862,8 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
         $("#ic_close_24px").click(function(){
             $("#timeCover").hide();
             $("#time").hide();
+            clearInterval(counter);
+
         });
 
         $(".chevron").click(function(){
