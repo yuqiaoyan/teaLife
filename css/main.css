@@ -2,10 +2,19 @@
 position: absolute -> relative to its first non static parent */
 html,
 body {
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
   margin: 0px 0px 0px 0px;
   overflow: hidden;
+}
+.teaRow {
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  margin-bottom: 2.5%;
+}
+.unflex > #searchInput,
+#categoryFilter {
+  margin-top: 2.5%;
 }
 #searchWrapper {
   width: 100%;
@@ -23,52 +32,35 @@ body {
   margin-right: auto;
   margin-top: 2%;
 }
-.flexBase {
-  display: flex;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: -moz-flex;
-}
-.flexColumn {
-  flex-direction: column;
-  -webkit-flex-direction: column;
-  justify-content: space-around;
-  -webkit-justify-content: space-around;
-}
-.teaRow {
-  flex-direction: row;
-  -webkit-flex-direction: row;
-  margin-bottom: 12px;
-}
-.unflex {
-  display: block;
-}
-.unflex > #searchInput,
-#categoryFilter {
-  margin-top: 12px;
-}
 .teaResult {
   width: 70%;
-  margin-left: 12px;
-  margin-bottom: 12px;
+  margin-left: 2.5%;
+  margin-bottom: 2.5%;
 }
 .teaShortDescription {
-  font-size: 12px;
-  line-height: 15px;
-  margin-top: 4px;
+  font-size: 14px;
+  line-height: 17.5px;
+  margin-top: 1%;
+}
+@media all and (min-width: 600px) {
+  .teaShortDescription {
+    font-size: 18.9px;
+    line-height: 23.625px;
+    margin-top: 1.35%;
+  }
 }
 .teaResult > p {
   margin: 0px 0px 0px 0px;
 }
 .teaResultName {
-  font-size: 14px;
+  font-size: 16px;
 }
 .teaResultPrice {
-  font-size: 10px;
+  font-size: 12px;
   color: #7CC352;
 }
 .subheader {
-  font-size: 16px;
+  font-size: 18px;
 }
 #searchInput {
   height: 29px;
@@ -78,7 +70,10 @@ body {
   border-radius: .5em;
   text-align: center;
   line-height: 29px;
-  font-size: 14px;
+  font-size: 16px;
+}
+#searchInput span {
+  opacity: 85%;
 }
 #categoryFilter {
   text-align: center;
@@ -90,18 +85,18 @@ body {
   /*margin-bottom: 12px;*/
 }
 .addMarginTop {
-  margin-top: 12px;
+  margin-top: 2.5%;
 }
 .row {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-bottom: 16px;
+  margin-bottom: 10%;
 }
 .tag {
   color: #fdfdfd;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
   border-radius: .4em;
   display: inline-block;
   margin-right: 6%;
@@ -114,6 +109,7 @@ body {
   margin-right: 14px;
   display: inline-block;
   transform: translateY(-10%);
+  -webkit-transform: translateY(-10%);
   font-size: 14px;
   font-weight: 300;
 }
@@ -138,30 +134,330 @@ body {
   margin-top: 2%;
   margin-right: 0%;
   margin-bottom: 0%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+  /* padding-left: 4px;
+	padding-right: 4px; */
   border-radius: .2em;
 }
 .searchTagText {
   transform: translateY(-30%);
-  font-size: 10px;
+  -webkit-transform: translateY(-30%);
+  font-size: 12px;
   font-weight: 300;
   margin-right: 8px;
   display: inline-block;
 }
 .searchRemoveIcon {
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 100;
   display: inline-block;
   transform: translateY(-60%);
+  -webkit-transform: translateY(-60%);
 }
 hr {
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
   color: #d8d8d8;
   opacity: .8;
 }
 #teaOfDay > img {
   width: 100%;
+}
+.hiddenTag {
+  background-color: #d8d8d8;
+  color: #d8d8d8;
+}
+.hiddenSearchTag {
+  background-color: white;
+}
+#resultsWrapper {
+  display: none;
+  margin-top: 2.5%;
+}
+#resultSummary {
+  font-size: 14px;
+  color: #aaa;
+}
+.thumbnail {
+  width: 30%;
+  height: 30%;
+}
+#results {
+  list-style: none;
+  padding: 0px 0px 0px 0px;
+}
+#teaPage {
+  position: absolute;
+  background-color: white;
+  display: none;
+  top: 0px;
+  height: 100%;
+}
+#brand {
+  position: absolute;
+  top: 5%;
+  font-size: 32px;
+  color: #04a64e;
+  /*background-color: rgba(4, 166, 78, 0.79);*/
+  /* green */
+  background-color: rgba(255, 255, 255, 0.55);
+  padding-left: 5%;
+  padding-right: 2%;
+}
+.units {
+  font-size: 12px;
+}
+#teaContent {
+  width: 100%;
+  padding-bottom: 12px;
+  /*display: none;*/
+  overflow-y: scroll;
+  z-index: 1;
+  font-size: 14px;
+}
+#teaProfile {
+  width: 90%;
+  margin: 0 auto;
+  /*padding: 0px 16px 0px 16px;*/
+}
+header {
+  width: 100%;
+  border-bottom: 1px solid #e4e3e3;
+  text-align: center;
+  position: fixed;
+  background-color: white;
+  /*display: none;*/
+}
+.headerTitle {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 42px;
+  color: #353434;
+}
+#teaFactsWrapper {
+  margin-bottom: 2.5%;
+  background-image: url("img/products/yunnan_pu_erh_white.jpg");
+  background-size: 100% auto;
+}
+#teaFacts {
+  /*width: 30%;*/
+}
+#teaFacts > ul {
+  /*background-color: rgba(0,0,0,0.35);  */
+  /* black */
+  background-color: rgba(124, 195, 82, 0.85);
+  /*background-color: rgba(4, 166, 78, 0.79);*/
+  /*brand green */
+  /*height: 100%;*/
+  margin: 0 0 0 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  /*padding: 15px 10% 15px 10%;  padding might need to be calculated */
+  /*display: table;*/
+  color: white;
+}
+#teaFacts > ul > li {
+  list-style: none;
+  /*display: table-row;*/
+  margin-bottom: 20%;
+}
+#teaFacts > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+.teaValueTitle {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 14px;
+  display: list-item;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+.teaValue {
+  font-weight: 400;
+  /*font-size: 50px;*/
+  font-size: 18px;
+}
+.buy-link {
+  display: block;
+  /*padding: 8px 0px 8px 16px;*/
+  text-decoration: none;
+  width: auto;
+  color: #50B5CC;
+  margin-bottom: 2.5%;
+}
+.button-color {
+  color: #fdfdfd;
+  /*	color: rgb(244, 243, 243);  soft white */
+  /*background-color: #18C704;*/
+  background-color: #7CC352;
+}
+#timerButton {
+  /* SET THE BUTTON TO THE BOTTOM OF THE SCREEN */
+  width: 100%;
+  height: 52px;
+  /*display: none;*/
+  position: relative;
+  z-index: 3;
+}
+#timerButton button {
+  text-align: center;
+  font-weight: 300;
+  font-size: 28px;
+  letter-spacing: 1.5px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0px 10px 0px;
+  border: none;
+}
+#timeCover {
+  background-color: rgba(216, 216, 216, 0.93);
+  display: none;
+  height: 100%;
+  z-index: 2;
+  width: 100%;
+}
+#time {
+  background-color: white;
+  border-top: 2px solid #18C704;
+  width: 100%;
+  height: 70%;
+  z-index: 3;
+  position: absolute;
+  top: 30%;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 2px 7px black;
+  display: none;
+}
+.bgPosition {
+  position: absolute;
+  top: 0px;
+  opacity: .7;
+  /*left: 21px;
+  	top: 65px;*/
+}
+#circleWrapper {
+  height: 100%;
+}
+#circle {
+  text-align: center;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-readius: 100%;
+  color: white;
+  background-color: #7CC352;
+  margin: auto;
+}
+.timerText {
+  font-size: 72px;
+  font-weight: 300;
+  margin: auto;
+}
+#timeWrapper {
+  margin: auto;
+}
+.circleLink {
+  margin: auto;
+  font-weight: 100;
+  opacity: .9;
+  font-size: 14px;
+}
+.circleLink:hover {
+  font-weight: 300;
+  opacity: 1;
+}
+.circleLink:active {
+  font-weight: 300;
+  opacity: 1;
+}
+#ic_close_24px {
+  position: absolute;
+  top: 2%;
+  left: 90%;
+  fill: #7CC352;
+  fill-opacity: .8;
+}
+.filterAlignment {
+  margin-left: auto;
+  margin-right: auto;
+  width: 99%;
+}
+@media all and (min-width: 600px) and (max-width: 1000px) {
+  body {
+    font-size: 18.9px;
+  }
+  .tagText {
+    font-size: 21.6px;
+  }
+  .addIcon {
+    font-size: 32px;
+  }
+  .searchTagText {
+    font-size: 16px;
+  }
+  .searchTag {
+    margin-top: 1.5%;
+  }
+  .searchRemoveIcon {
+    font-size: 18px;
+    line-height: 18px;
+  }
+  .subheader {
+    font-size: 24.3px;
+  }
+  .teaResultName {
+    font-size: 21.6px;
+  }
+  .teaResultPrice {
+    font-size: 16.2px;
+  }
+  #searchInput {
+    height: 40px;
+    line-height: 40px;
+    font-size: 21.6px;
+    vertical-align: middle;
+  }
+  #resultSummary {
+    font-size: 18.9px;
+    color: #aaa;
+  }
+  #teaContent {
+    font-size: 23.8px;
+  }
+  .headerTitle {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 56px;
+  }
+  .teaValueTitle {
+    font-weight: 300;
+    font-style: italic;
+    font-size: 23.8px;
+  }
+  .teaValue {
+    font-size: 30.6px;
+  }
+  .units {
+    font-size: 20.4px;
+  }
+  #timerButton {
+    height: 71px;
+  }
+  #timerButton button {
+    font-size: 38px;
+  }
+  .timerText {
+    font-size: 98px;
+  }
+  .circleLink {
+    font-size: 23.8px;
+  }
+}
+@media all and (min-width: 1001px) {
+  .searchTag {
+    margin-top: 1%;
+  }
 }

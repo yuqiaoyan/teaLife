@@ -4,12 +4,14 @@
 	<meta charset="UTF-8">
 	<title>main</title>
 
-	<meta name="viewport" content="initial-scale=1.0" id="viewport">
+	<meta name="viewport" content="width=device-width initial-scale=1.0" id="viewport">
+	<!-- <meta name="viewport" id="viewport"> -->
 	
 	<!-- LA STYLESHEETS -->
 
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 	<link href="css/main.css"rel='stylesheet' type='text/css'>	
+		<link href="css/base.css"rel='stylesheet' type='text/css'>
 	
 	<!-- LA SCRIPTTT -->
 
@@ -24,349 +26,12 @@
 
 <style>
 
-	.hiddenTag{
-		background-color: #d8d8d8;
-		color: #d8d8d8;
-	}
+	
 
-	#resultsWrapper{
-		display: none;
-		margin-top: 12px;
-	}
 
-	#resultSummary{
-		font-size: 14px;
-		color: #aaa;
-	}
 
-	.thumbnail{
-		width: 30%;
-		height: 30%;
-	}
 
-	#results{
-		list-style: none;
-		padding: 0px 0px 0px 0px;
-	}
 
-	#teaPage{
-		position: absolute;
-		background-color: white;
-		display: none;
-		top: 0px;
-		height: 100%;
-	}
-
-	#brand{
-		position: absolute;
-		top: 5%;
-		font-size: 32px;
-		color: rgba(4, 166, 78, 1);
-		/*background-color: rgba(4, 166, 78, 0.79);*/ /* green */
-		background-color: rgba(255,255,255,0.55);
-		padding-left: 5%;
-		padding-right: 2%;
-	}
-
-	.units{
-		font-size: 10px;
-	}
-
-	#teaContent{ 
-		width: 100%;
-		padding-bottom: 12px;
-		/*display: none;*/
-		overflow-y: scroll;
-		z-index: 1;
-
-	}
-
-/*	#teaPage:after{
-		content: "";
-		display:block;
-	}*/
-
-	#teaProfile{
-		width: 90%;
-		margin: 0 auto;
-		/*padding: 0px 16px 0px 16px;*/
-	}
-
-	header{
-		width: 100%;
-		border-bottom: 1px solid rgb(228, 227, 227);
-		text-align: center;
-		position: fixed;
-		background-color: white;
-		/*display: none;*/
-	}
-
-	.headerTitle{
-		font-size: 24px;
-		font-weight: 400;	
-		line-height: 42px;
-		color: rgb(53,52,52);
-	}
-
-	.chevron {
-	    display:inline-block;
-	    width: .5em;
-	    height: .7em;
-	    position:absolute;
-	    top: 18px;
-	    left: 16px;
-	    -webkit-transform: rotate(180deg);
-	  transform: rotate(180deg);
-	}
-	.chevron:before,
-	.chevron:after {
-	    display:block;
-	    content:"";
-	    width:0;
-	    height:0em;
-	    border-style:solid;
-	    position:absolute;
-	}
-	.chevron:before {
-	    right:0;
-	    border-width:.4em 0 .4em .4em;
-	    border-color:transparent transparent transparent black;    
-	}
-	.chevron:after {
-	    left:0;
-	    border-width:.4em 0 .4em .4em;
-	    border-color:transparent transparent transparent #fff;    
-	}
-
-
-	#teaFactsWrapper{
-		margin-bottom: 12px;
-		background-image: url("img/products/yunnan_pu_erh_white.jpg");
-		background-size: 100% auto; 
-
-	}
-
-	#teaFacts{
-		/*width: 30%;*/
-	}
-
-	#teaFacts > ul{
-		/*background-color: rgba(0,0,0,0.35);  */ /* black */
-		background-color: rgba(124, 195, 82, 0.85);
-		/*background-color: rgba(4, 166, 78, 0.79);*/ /*brand green */
-		/*height: 100%;*/
-		margin: 0 0 0 0;
-		padding-top: 12px;
-		padding-bottom: 12px;
-		/*padding: 15px 10% 15px 10%;  padding might need to be calculated */
-		/*display: table;*/
-		color: white;
-
-	}
-
-	#teaFacts > ul > li{
-		list-style: none;
-		/*display: table-row;*/
-		margin-bottom: 8px;
-	}
-
-	#teaFacts > ul > li:last-child { margin-bottom: 0 !important;}
-
-	.subhead{
-		font-weight: 300;
-		font-style: italic;
-		font-size: 14px;
-		display: list-item;
-		-webkit-margin-before: 0em;
-			-webkit-margin-after: 0em;
-
-
-	}
-
-	.teaValue{
-		font-weight: 400;
-		/*font-size: 50px;*/
-		font-size: 18px;
-
-	}
-
-	#degrees::after {
-	  content: "\00b0";
-	}
-
-	#teaDescription{
-		font-size: 14px;
-	}
-
-
-
-	.buy-link{
-		display: block;
-		/*padding: 8px 0px 8px 16px;*/
-		text-decoration: none;
-		width: auto;
-		color: #50B5CC;
-		font-size: 14px;
-		margin-bottom: 12px;
-	}
-
-	.button-color{
-		color: rgb(253, 253, 253);
-	/*	color: rgb(244, 243, 243);  soft white */
-		/*background-color: #18C704;*/
-		background-color: #7CC352;
-	}
-
-
-
-
-	#timerButton{
-		/* SET THE BUTTON TO THE BOTTOM OF THE SCREEN */
-		width: 100%;
-		/*position: absolute;*/
-		height: 52px;
-		/*display: none;*/
-		position: relative;
-		z-index:3;
-		/*position: fixed;*/
-		/*top: 648px;*/
-		/*border: 1px solid grey;*/
-	}
-
-
-	#timerButton button{
-		text-align: center;
-		font-weight: 300;
-		font-size: 28px;
-		letter-spacing: 1.5px;
-
-		width: 100%;
-		margin-left: auto;
-		margin-right: auto;
-		padding: 10px 0px 10px 0px;
-		border: none;
-
-	}
-
-	#timeCover{
-		background-color: rgba(216,216,216,.93);
-		display: none;
-		height: 100%;
-		z-index:2;
-		width: 100%;
-	}
-
-	#time{
-		background-color: white;
-		border-top: 2px solid #18C704;
-		
-		width: 100%;
-		height: 70%;
-		z-index: 3;
-		position: absolute;
-		top: 30%;
-
-		-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-		-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-		box-shadow: 0 2px 7px black;
-		
-		display: none;
-	}
-
-	.bgPosition{
-		position: absolute;
-		top: 0px;
-		opacity: .7;
-	  	/*left: 21px;
-	  	top: 65px;*/
-	}
-
-	.flexBase{
-		display: flex;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: -moz-flex;
-
-	}
-
-	.flexChildCenter{
-		-webkit-justify-content: center;
-		-webkit-align-items: center;
-
-		justify-content: center;
-		align-items: center;
-
-	}
-
-	#circleWrapper{
-
-
-		height: 100%;
-	}
-
-	#circle{
-		text-align: center;
-
-		border-radius: 100%;
-		-webkit-border-radius: 100%;
-		-moz-border-readius: 100%;
-
-		color: white;
-		background-color: #7CC352;
-
-		margin: auto;
-
-	}
-
-	.timerText{
-		font-size: 72px;
-		font-weight: 300;
-		margin: auto;
-
-	}
-
-	#timeWrapper{
-		margin: auto;
-	}
-
-	.circleLink{
-		margin: auto;
-		font-weight: 100;
-		opacity: .9;
-		font-size: 14px;
-	}
-
-	.circleLink:hover{
-		font-weight: 300;
-		opacity: 1;
-	}
-
-	.circleLink:active{
-		font-weight:300;
-		opacity: 1;
-	}
-
-	#ic_close_24px{
-
-		position: absolute;
-		top: 2%;
-		left: 90%;
-
-		fill: #7CC352;
-		fill-opacity: .8;
-
-
-	}
-
-	.hiddenSearchTag{
-		background-color: white;
-	}
-
-	.filterAlignment{
-		margin-left: auto;
-		margin-right: auto;
-		width: 99%;
-	}
 
 /*	@media all and (min-width: 450px){
 		body{
@@ -458,16 +123,16 @@
 
 							<ul>
 								<li>
-									<span class = "subhead"> Type </span>
+									<span class = "teaValueTitle"> Type </span>
 									<span class = "teaValue"> Black </span>
 									
 								</li>
 								<li>
-									<span class = "subhead"> Temp </span>
+									<span class = "teaValueTitle"> Temp </span>
 									<span id = "degrees" class = "teaValue"> 212 </span>
 								</li>
 								<li>
-									<span class = "subhead"> Time </span>
+									<span class = "teaValueTitle"> Time </span>
 									
 									<span class = "teaValue"> 2:00 </span>
 								</li>

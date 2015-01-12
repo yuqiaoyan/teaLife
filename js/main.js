@@ -1,13 +1,13 @@
 var teas;
 var teaQuery = new ta.Query();
 
-var adjustViewport = function() {
-  var ww = Math.min($(window).width(), window.screen.width);
-  var mw = 450;
-  var ratio =  ww / mw;
-  $('#viewport').attr('content', 'width=' + mw +
-      ', initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=no');
-};
+// var adjustViewport = function() {
+//   var ww = Math.min($(window).width(), window.screen.width);
+//   var mw = 1080;
+//   var ratio =  ww / mw;
+//   $('#viewport').attr('content', 'width=' + mw +
+//       ', initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=no');
+// };
 
 // Loads the tea data.
 var loadData = function(url) {
@@ -40,7 +40,7 @@ var loadData = function(url) {
 
 // Where the fun starts.
 $(document).ready(function() {
-  adjustViewport();
+  // adjustViewport();
   console.log('Document ready...');
   loadData('teas.json');
 

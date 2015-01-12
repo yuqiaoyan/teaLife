@@ -154,6 +154,7 @@ var helpers = {
 
 	    $("#teaContent").height(windowHeight - headerHeight - footerHeight - 12);
 	    $("#teaContent").css("margin-top",headerHeight);
+	    $("#timerButton").children(":first").css("height",footerHeight);
 
 	    
 	    //set the tea width

@@ -35,18 +35,12 @@ renderTeaPageUpdates(teaDataObj){
 
 TODOS:
 
-upload code to github
 
 test the site on ipad
 	- update children in searchInput and Tag need to flex vertically centered?
 
-add a teaPage object to deal with static UI binding
-	teaPage = {};
-	currTea = (tea)?
 
-	//method 
-	setPage(tea) - updates the teaPage with the tea, updates curr tea
-	getPage()
+
 
 add search icon
 fix chevron positioning - flex to vertically center

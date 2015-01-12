@@ -519,12 +519,22 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
     helpers.renderFilters($("#flavorFilter"), ta.Catalog.FLAVORS,"flavor");
 
     //set height of HTML elements based on device size
-    var searchInputHeight = $("#searchInput").height();
-    var searchTagHeight = searchInputHeight*.55;
-    var tagHeight = $(".tag").height();
-    var thumbnailHeight = .3*$(window).width(); //will need a generalized solution for different sized source tea images
-    var maxWords = 20;
-    var maxDescriptionChars = 100;
+    var windowWidth = $(window).width(),
+        searchInputHeight = $("#searchInput").height(),
+        searchTagHeight = searchInputHeight*.55,
+        tagHeight = $(".tag").height(),
+        thumbnailHeight = .3*windowWidth; //will need a generalized solution for different sized source tea images
+    
+    var maxWords, maxDescriptionChars;
+
+    if(windowWidth < 600){
+      maxWords = 16;
+      maxDescriptionChars = 100;
+    }
+    else{
+      maxWords = 25;
+      maxDescriptionChars = 300;
+    }
 
     //tuning for animations
     var animationDuration = 380;
@@ -558,7 +568,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
                     shortDescription += " ";
                 }
                 //shortDescription = aTea.description.substring(0,maxDescriptionChars);
-                shortDescription += "..."; //add ellipsis
+                // shortDescription += "..."; //add ellipsis
               }
               else{
                 //do nothing
@@ -686,24 +696,27 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
           //for all other clicks
           else{
 
-
-
             if($(this).children(":last").attr('class')=="addIcon"){
-              var tagAnimationProperties = {
-                "height": searchTagHeight + "px",
-                "padding-left": "4px",
-                "padding-right": "4px"
-              };
 
-              var textAnimationProperties = {
-                "margin-right": "8px",
-                "font-size":"10px",
-                "transform": "translateY('-30%'')"
-              };
+              // var tagAnimationProperties = {},
+              //     textAnimationProperties = {};
+              
+              // var tagAnimationProperties = {
+              //   "height": searchTagHeight + "px",
+              //   "padding-left": paddingPX,
+              //   "padding-right": paddingPX
+              // };
+
+              // var textAnimationProperties = {
+              //   "margin-right": "8px",
+              //   "font-size":"10px",
+              //   "transform": "translateY('-30%'')",
+              //   "-webkit-transform": "translateY('-30%'')"
+              // };
 
 
-
-              animateTag($(this), tagAnimationProperties, insertTagToSearch, textAnimationProperties);
+              animateTag($(this), insertTagToSearch);
+              // animateTag($(this), tagAnimationProperties, insertTagToSearch, textAnimationProperties);
 
               teaQuery.addTag(temp);
               
@@ -717,17 +730,24 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
             else{
               
 
-              var searchTagAnimationProperties = {
-                "height": tagHeight + "px",
-                "padding-left": "12px",
-                "padding-right": "12px"
-              };
+              // var searchTagAnimationProperties = {
+              //   "height": tagHeight + "px",
+              //   "padding-left": "2.5%",
+              //   "padding-right": "2.5%"
+              // };
 
-              var tagTextAnimationProperties = {
-                "margin-right": "14px",
-                "font-size":"14px",
-                "transform": "translateY('-10%')"
-              };
+              // // var searchTagAnimationProperties = {
+              // //   "height": tagHeight + "px",
+              // //   "padding-left": "12px",
+              // //   "padding-right": "12px"
+              // // };
+
+              // var tagTextAnimationProperties = {
+              //   "margin-right": "14px",
+              //   "font-size":"14px",
+              //   "transform": "translateY('-10%')",
+              //   "-webkit-transform": "translateY('-10%'')"
+              // };
 
               teaQuery.removeTag(temp);
 
@@ -738,8 +758,8 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
                 $("#flavorFilter").show();
               }
 
-
-              animateTag($(this), searchTagAnimationProperties, removeTagFromSearch, tagTextAnimationProperties);
+              animateTag($(this), removeTagFromSearch);
+              // animateTag($(this), searchTagAnimationProperties, removeTagFromSearch, tagTextAnimationProperties);
               // updateTeaResults();
 
               //if we are removing the last tag, return to defaultSearch View
@@ -796,7 +816,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
           $searchTag.children(":last").text("+");
         }
 
-        function animateTag($original, tagAnimationProperties, updateTag, textAnimationProperties){
+        function animateTag($original, updateTag){
           var temp = $original.clone().appendTo('body');
             temp.css('position','fixed')
               .css('left',$original.offset().left)
@@ -806,13 +826,47 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
             updateTag($original);
 
-            // var $original = $(this);
+            // get new tag layout info
 
-            var newTop = $original.offset().top;
-            var newLeft = $original.offset().left;
+            var newTop = $original.offset().top,
+                newLeft = $original.offset().left,
+                newHeight = $original.height(),
+                newPadding = $original.css("padding-left");
 
-            tagAnimationProperties["top"] = newTop;
-            tagAnimationProperties["left"] = newLeft;
+            // set the tag animation properties
+            var tagAnimationProperties = {
+              "top": newTop,
+              "left": newLeft,
+              "height": newHeight,
+              "padding-left": newPadding,
+              "padding-right": newPadding
+            };
+
+            var $tagText = $original.children(":first");
+
+            // get the text animation properties
+            var marginRight = $tagText.css("margin-right"),
+                fontSize = $tagText.css("font-size"),
+                transform = $tagText.css("transform");
+
+            var matrixToArray = function(str){
+              return str.match(/(-?[0-9\.]+)/g);
+            };
+
+            var translateY = matrixToArray(transform)[5];
+
+
+            var textAnimationProperties = {
+              "margin-right": marginRight,
+              "font-size": fontSize,
+              "transform": translateY,
+              "-webkit-transform": translateY
+            };
+
+
+            // textAnimationProperties = {
+
+            // }
             // tagAnimationProperties["height"]= "21px";
 
 

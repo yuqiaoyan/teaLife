@@ -2,13 +2,20 @@
 /* position: relative -> releative to its normal position
 position: absolute -> relative to its first non static parent */
 
-@baseFontSize: 12px;
-@smallFontSize: 10px;
-@medFontSize: 14px;
-@largeFontSize: 16px;
+@baseFontSize: 14px;
+@smallFontSize: 12px;
+@medFontSize: 16px;
+@largeFontSize: 18px;
+@verylargeFontSize: 20px;
 
-@baseMarginSize: 12px;
-@smallMarginSize: 4px;
+@tabletMultiple: 1.35;
+@teaPageTabletMultiple: 1.7;
+
+// @baseMarginSize: 12px;
+// @smallMarginSize: 4px;
+
+@baseMarginSize: 2.5%;
+@smallMarginSize: 1%;
 
 html, body{
 	font-size: @baseFontSize;
@@ -16,6 +23,18 @@ html, body{
 	margin: 0px 0px 0px 0px;
 	overflow: hidden;
 	}
+
+.teaRow{
+
+	flex-direction: row;
+	-webkit-flex-direction: row;
+	margin-bottom: @baseMarginSize;
+
+}
+
+.unflex > #searchInput,#categoryFilter{
+	margin-top: @baseMarginSize;
+}
 
 #searchWrapper{
 	width: 100%;
@@ -39,39 +58,6 @@ html, body{
 	
 }
 
-.flexBase{
-	display: flex;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: -moz-flex;
-
-}
-
-.flexColumn{
-	flex-direction: column;
-	-webkit-flex-direction: column;
-	justify-content: space-around;
-	-webkit-justify-content: space-around;
-
-}
-
-.teaRow{
-
-	flex-direction: row;
-	-webkit-flex-direction: row;
-	margin-bottom: @baseMarginSize;
-
-}
-
-
-.unflex{
-	display: block;
-}
-
-.unflex > #searchInput,#categoryFilter{
-	margin-top: @baseMarginSize;
-}
-
 .teaResult{
 	width: 70%;
 	margin-left: @baseMarginSize;
@@ -84,7 +70,17 @@ html, body{
 	line-height: @baseFontSize*1.25;
 	margin-top: @smallMarginSize;
 
+	@media all and (min-width: 600px){
+		font-size: @baseFontSize*@tabletMultiple;
+		line-height: @baseFontSize*@tabletMultiple*1.25;
+		margin-top: @smallMarginSize*@tabletMultiple;
+		
+	}
+
 }
+
+
+
 
 .teaResult > p{
 	margin: 0px 0px 0px 0px;
@@ -118,6 +114,10 @@ html, body{
 	font-size: @medFontSize;
 }
 
+#searchInput span{
+	opacity: 85%;
+}
+
 #categoryFilter{
 	text-align: center;
 	/*background-color: blue;*/
@@ -138,13 +138,13 @@ html, body{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	margin-bottom: 16px;
+	margin-bottom: @baseMarginSize*4;
 }
 
 .tag{
 	color: #fdfdfd;
-	padding-left: 12px;
-	padding-right: 12px;
+	padding-left: 2.5%;
+	padding-right: 2.5%;
 
 	border-radius: .4em;
 
@@ -163,7 +163,8 @@ html, body{
 	margin-right: 14px;
 	display: inline-block;
 	transform: translateY(-10%);
-	font-size: @medFontSize;
+	-webkit-transform: translateY(-10%);
+	font-size: @baseFontSize;
 	font-weight: 300;
 
 }
@@ -195,13 +196,18 @@ html, body{
 	margin-right: 0%;
 	margin-bottom: 0%;
 
-	padding-left: 4px;
-	padding-right: 4px;
+	padding-left: 1.5%;
+	padding-right: 1.5%;
+
+/* padding-left: 4px;
+	padding-right: 4px; */
+
 	border-radius: .2em;
 }
 
 .searchTagText{
 	transform: translateY(-30%);
+	-webkit-transform: translateY(-30%);
 	font-size: @smallFontSize;
 	font-weight: 300;
 	margin-right: 8px;
@@ -214,6 +220,7 @@ html, body{
 	font-weight: 100;
 	display:inline-block;
 	transform: translateY(-60%);
+	-webkit-transform: translateY(-60%);
 }
 
 hr{
@@ -226,3 +233,391 @@ hr{
 #teaOfDay > img{
 	width: 100%;
 }
+
+
+//************ TEA PAGE **************
+
+.hiddenTag{
+	background-color: #d8d8d8;
+	color: #d8d8d8;
+}
+
+.hiddenSearchTag{
+	background-color: white;
+}
+
+#resultsWrapper{
+	display: none;
+	margin-top: @baseMarginSize;
+}
+
+#resultSummary{
+	font-size: @baseFontSize;
+	color: #aaa;
+}
+
+.thumbnail{
+	width: 30%;
+	height: 30%;
+}
+
+#results{
+	list-style: none;
+	padding: 0px 0px 0px 0px;
+}
+
+#teaPage{
+	position: absolute;
+	background-color: white;
+	display: none;
+	top: 0px;
+	height: 100%;
+}
+
+#brand{
+	position: absolute;
+	top: 5%;
+	font-size: 32px;
+	color: rgba(4, 166, 78, 1);
+	/*background-color: rgba(4, 166, 78, 0.79);*/ /* green */
+	background-color: rgba(255,255,255,0.55);
+	padding-left: 5%;
+	padding-right: 2%;
+}
+
+.units{
+	font-size: @smallFontSize;
+}
+
+#teaContent{ 
+	width: 100%;
+	padding-bottom: 12px;
+	/*display: none;*/
+	overflow-y: scroll;
+	z-index: 1;
+	font-size: @baseFontSize;
+
+}
+
+#teaProfile{
+	width: 90%;
+	margin: 0 auto;
+	/*padding: 0px 16px 0px 16px;*/
+}
+
+header{
+	width: 100%;
+	border-bottom: 1px solid rgb(228, 227, 227);
+	text-align: center;
+	position: fixed;
+	background-color: white;
+	/*display: none;*/
+}
+
+.headerTitle{
+	font-size: 24px;
+	font-weight: 400;	
+	line-height: 42px;
+	color: rgb(53,52,52);
+}
+
+
+#teaFactsWrapper{
+	margin-bottom: @baseMarginSize;
+	background-image: url("img/products/yunnan_pu_erh_white.jpg");
+	background-size: 100% auto; 
+
+}
+
+#teaFacts{
+	/*width: 30%;*/
+}
+
+#teaFacts > ul{
+	/*background-color: rgba(0,0,0,0.35);  */ /* black */
+	background-color: rgba(124, 195, 82, 0.85);
+	/*background-color: rgba(4, 166, 78, 0.79);*/ /*brand green */
+	/*height: 100%;*/
+	margin: 0 0 0 0;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	/*padding: 15px 10% 15px 10%;  padding might need to be calculated */
+	/*display: table;*/
+	color: white;
+
+}
+
+#teaFacts > ul > li{
+	list-style: none;
+	/*display: table-row;*/
+	margin-bottom: 20%;
+}
+
+#teaFacts > ul > li:last-child { margin-bottom: 0 !important;}
+
+.teaValueTitle{
+	font-weight: 300;
+	font-style: italic;
+	font-size: @baseFontSize;
+	display: list-item;
+	-webkit-margin-before: 0em;
+		-webkit-margin-after: 0em;
+}
+
+.teaValue{
+	font-weight: 400;
+	/*font-size: 50px;*/
+	font-size: @largeFontSize;
+
+}
+
+
+
+.buy-link{
+	display: block;
+	/*padding: 8px 0px 8px 16px;*/
+	text-decoration: none;
+	width: auto;
+	color: #50B5CC;
+	margin-bottom: @baseMarginSize;
+}
+
+.button-color{
+	color: rgb(253, 253, 253);
+/*	color: rgb(244, 243, 243);  soft white */
+	/*background-color: #18C704;*/
+	background-color: #7CC352;
+}
+
+
+
+#timerButton{
+	/* SET THE BUTTON TO THE BOTTOM OF THE SCREEN */
+	width: 100%;
+	height: 52px;
+	/*display: none;*/
+	position: relative;
+	z-index:3;
+}
+
+
+#timerButton button{
+	text-align: center;
+	font-weight: 300;
+	font-size: 28px;
+	letter-spacing: 1.5px;
+
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px 0px 10px 0px;
+	border: none;
+
+}
+
+#timeCover{
+	background-color: rgba(216,216,216,.93);
+	display: none;
+	height: 100%;
+	z-index:2;
+	width: 100%;
+}
+
+#time{
+	background-color: white;
+	border-top: 2px solid #18C704;
+	
+	width: 100%;
+	height: 70%;
+	z-index: 3;
+	position: absolute;
+	top: 30%;
+
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+	-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+	box-shadow: 0 2px 7px black;
+	
+	display: none;
+}
+
+.bgPosition{
+	position: absolute;
+	top: 0px;
+	opacity: .7;
+  	/*left: 21px;
+  	top: 65px;*/
+}
+
+
+
+#circleWrapper{
+
+
+	height: 100%;
+}
+
+#circle{
+	text-align: center;
+
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-readius: 100%;
+
+	color: white;
+	background-color: #7CC352;
+
+	margin: auto;
+
+}
+
+.timerText{
+	font-size: 72px;
+	font-weight: 300;
+	margin: auto;
+
+}
+
+#timeWrapper{
+	margin: auto;
+}
+
+.circleLink{
+	margin: auto;
+	font-weight: 100;
+	opacity: .9;
+	font-size: @baseFontSize;
+}
+
+.circleLink:hover{
+	font-weight: 300;
+	opacity: 1;
+}
+
+.circleLink:active{
+	font-weight:300;
+	opacity: 1;
+}
+
+#ic_close_24px{
+
+	position: absolute;
+	top: 2%;
+	left: 90%;
+
+	fill: #7CC352;
+	fill-opacity: .8;
+
+
+}
+
+
+.filterAlignment{
+	margin-left: auto;
+	margin-right: auto;
+	width: 99%;
+}
+
+@media all and (min-width: 600px) and (max-width: 1000px){
+	body{
+	font-size: @baseFontSize*@tabletMultiple;	
+	}
+
+	.tagText{
+		font-size: @medFontSize*@tabletMultiple;
+	}
+
+	.addIcon{
+		font-size: 32px;
+	}
+
+	.searchTagText{
+		font-size: 16px;
+	}
+
+	.searchTag{
+		margin-top: 1.5%;
+	}
+
+	.searchRemoveIcon{
+		font-size: 18px;
+		line-height: 18px;
+	}
+
+	.subheader{
+		font-size: @largeFontSize*@tabletMultiple;
+	}
+
+
+	.teaResultName{
+		font-size: @medFontSize*@tabletMultiple;
+	}
+
+	.teaResultPrice{
+		font-size: @smallFontSize*@tabletMultiple;
+	}
+
+	#searchInput{
+		height: 40px;
+		line-height: 40px;
+		font-size: @medFontSize*@tabletMultiple;
+		vertical-align: middle;
+	}
+
+	#resultSummary{
+		font-size: @baseFontSize*@tabletMultiple;
+		color: #aaa;
+	}
+
+	#teaContent{
+		font-size: @baseFontSize*@teaPageTabletMultiple;
+	}
+
+	.headerTitle{
+		font-size: 32px;
+		font-weight: 400;	
+		line-height: 56px;
+
+	}
+
+	.teaValueTitle{
+		font-weight: 300;
+		font-style: italic;
+		font-size: @baseFontSize*@teaPageTabletMultiple;
+	}
+
+	.teaValue{
+		font-size: @largeFontSize*@teaPageTabletMultiple;
+	}
+
+	.units{
+		font-size: @smallFontSize*@teaPageTabletMultiple;
+	}
+
+
+	#timerButton{
+		height: 71px;
+	}
+
+
+	#timerButton button{
+		font-size: 38px;
+	}
+
+
+	.timerText{
+		font-size: 98px;
+
+	}
+
+	.circleLink{
+		font-size: @baseFontSize*@teaPageTabletMultiple;
+	}
+
+}
+
+@media all and (min-width: 1001px){
+	.searchTag{
+		margin-top: 1%;
+	}
+}
+

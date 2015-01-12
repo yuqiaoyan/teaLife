@@ -1,0 +1,86 @@
+
+
+.iOS{
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+}
+
+.window{
+	font-family: 'Segoe UI', Segoe, Tahoma, Geneva, sans-serif;
+}
+
+
+.flexBase{
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: -moz-flex;
+
+}
+
+.flexColumn{
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+
+}
+
+.flexBase{
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: -moz-flex;
+
+}
+
+.flexChildCenter{
+	-webkit-justify-content: center;
+	-webkit-align-items: center;
+
+	justify-content: center;
+	align-items: center;
+
+}
+
+
+.unflex{
+	display: block;
+}
+
+
+
+#degrees::after {
+	  content: "\00b0";
+	}
+
+.chevron {
+    display:inline-block;
+    width: .5em;
+    height: .7em;
+    position:absolute;
+    top: 18px;
+    left: 16px;
+    -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.chevron:before,
+.chevron:after {
+    display:block;
+    content:"";
+    width:0;
+    height:0em;
+    border-style:solid;
+    position:absolute;
+}
+.chevron:before {
+    right:0;
+    border-width:.4em 0 .4em .4em;
+    border-color:transparent transparent transparent black;    
+}
+.chevron:after {
+    left:0;
+    border-width:.4em 0 .4em .4em;
+    border-color:transparent transparent transparent #fff;    
+}
+
