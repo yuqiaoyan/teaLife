@@ -1,8 +1,3 @@
-- run renderFilters
-- rest is handled by onClick
-
-
-Create a new Query
 
 $(".tag").click(
 	- create a tag object based on the clicked item
@@ -39,7 +34,7 @@ TODOS:
 test the site on ipad
 	- update children in searchInput and Tag need to flex vertically centered?
 
-
+If the client is on iPad iOS
 
 
 add search icon
@@ -74,6 +69,24 @@ insertTagToSearch($tag)
 animateToTop($original)
 
 countdown(timerMins)
+
+generateTeaRowHTML(aTea, idx)
+/*
+Creates the tea row HTML to insert into the search results
+@param aTea tea object for the tea row
+		idx - the index saved in HTML data to find the tea later
+*/
+
+renderTagUpdate($FilterDiv, remainingTags, type)
+/* called when users clicks on a tag to update the UI */
+
+updateTeaResults()
+/* updates the tea results when user clicks on the tag */
+
+
+RUN LAYOUT
+- renderFilters();
+- attach onClick functions
 
 --------------------------
 ONCLICKS

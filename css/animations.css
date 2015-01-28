@@ -1,0 +1,113 @@
+.teaRow{
+	padding: 12px 12px 12px 12px;
+}
+
+/*Test1 - Simple onTouch and MovementIn*/
+.teaRow:active{
+	background-color: rgb(241,235,235);
+} 
+
+.hideRight{
+	transform: translateX(100%);
+}
+
+.button-color:active{
+	background-color: #9AEA6B;
+}
+
+#ic_close_24px:active{
+
+}
+
+.chevron:active{
+
+}
+
+
+.fadeInRight{
+	animation-duration: 1s;
+
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+@-webkit-keyframes fadeInRight{
+	0%{
+		/*opacity: 0;*/
+/*		margin-left: 100%;*/
+		-webkit-transform: translate(100%,0);
+				transform: translate(100%,0);
+
+	}
+
+	100%{
+		/*opacity: 1;*/
+/*		margin-left: 0%;*/
+		-webkit-transform: none;
+		transform: none;
+	}
+}
+
+@keyframes fadeInRight{
+	0%{
+		/*opacity: 0;*/
+		-webkit-transform: translateX(100%,0);
+				transform: translateX(100%,0);
+		/*margin-left: 100%;*/
+	}
+
+	100%{
+		/*opacity: 1;*/
+		-webkit-transform: none;
+				transform: none;
+				/*margin-left: 0%;*/
+	}
+}
+
+.slideInTop{
+	animation-duration: 1s;
+
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: slideInTop;
+    animation-name: slideInTop;
+}
+
+@-webkit-keyframes slideInTop{
+	0%{
+		/*opacity: 0;*/
+/*		margin-left: 100%;*/
+		-webkit-transform: translate(0,100%);
+				transform: translate(0,100%);
+
+	}
+
+	100%{
+		/*opacity: 1;*/
+/*		margin-left: 0%;*/
+		-webkit-transform: none;
+		transform: none;
+	}
+}
+
+@keyframes slideInTop{
+	0%{
+		/*opacity: 0;*/
+		-webkit-transform: translateX(0,100%);
+				transform: translateX(0,100%);
+		/*margin-left: 100%;*/
+	}
+
+	100%{
+		/*opacity: 1;*/
+		-webkit-transform: none;
+				transform: none;
+				/*margin-left: 0%;*/
+	}
+}
+
+
+
+
+
+

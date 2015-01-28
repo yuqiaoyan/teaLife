@@ -728,26 +728,6 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
             //remove tag from SearchInput
             else{
-              
-
-              // var searchTagAnimationProperties = {
-              //   "height": tagHeight + "px",
-              //   "padding-left": "2.5%",
-              //   "padding-right": "2.5%"
-              // };
-
-              // // var searchTagAnimationProperties = {
-              // //   "height": tagHeight + "px",
-              // //   "padding-left": "12px",
-              // //   "padding-right": "12px"
-              // // };
-
-              // var tagTextAnimationProperties = {
-              //   "margin-right": "14px",
-              //   "font-size":"14px",
-              //   "transform": "translateY('-10%')",
-              //   "-webkit-transform": "translateY('-10%'')"
-              // };
 
               teaQuery.removeTag(temp);
 
@@ -759,14 +739,16 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
               }
 
               animateTag($(this), removeTagFromSearch);
-              // animateTag($(this), searchTagAnimationProperties, removeTagFromSearch, tagTextAnimationProperties);
-              // updateTeaResults();
+              
 
               //if we are removing the last tag, return to defaultSearch View
+              // if($("#searchInput").children().length <= 1){
+              //   $("#searchHint").show();
+              //   $("#teaOfDay").show();
+              // }
 
 
             }
-            // updateTeaResults(tagData);
 
 
           }
@@ -892,7 +874,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
           $("#circle").height($("#circle").width());
 
           $("#timeCover").show();
-          $("#time").show();
+          $("#time").show(); //animate the button here
 
           var steepTime = $("#timerButton").data("time");
           var countdownString = steepTime + ":00"; 

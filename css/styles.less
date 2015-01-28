@@ -152,6 +152,8 @@ html, body{
 	margin-right: 6%;
 	margin-bottom: 4%;
 
+	width: auto;
+
 
 }
 
@@ -160,7 +162,7 @@ html, body{
 }
 
 .tagText{
-	margin-right: 14px;
+	margin-right: 12px;
 	display: inline-block;
 	transform: translateY(-10%);
 	-webkit-transform: translateY(-10%);
@@ -189,6 +191,7 @@ html, body{
 }
 
 .searchTag{
+	width: auto;
 	height: 55%;
 	display: inline-block;
 	margin-left: 3%;
@@ -517,10 +520,31 @@ header{
 	width: 99%;
 }
 
-@media all and (min-width: 600px) and (max-width: 1000px){
+// most new mobile devices
+// iPhone4 and 5 covered by < 360px
+
+@media all and (min-width: 360px) and (max-width: 599px){
+	.tag{
+		width: 72px;
+	}
+
+}
+
+//portrait tablets
+
+@media all and (min-width: 600px){
 	body{
 	font-size: @baseFontSize*@tabletMultiple;	
 	}
+
+	.tag{
+		width: 110px;
+	}
+
+	.searchTag{
+		width: auto;
+	}
+
 
 	.tagText{
 		font-size: @medFontSize*@tabletMultiple;
@@ -615,9 +639,11 @@ header{
 
 }
 
-@media all and (min-width: 1001px){
+//landscape tablets and desktop
+@media all and (min-width: 1024px){
 	.searchTag{
 		margin-top: 1%;
 	}
 }
+
 

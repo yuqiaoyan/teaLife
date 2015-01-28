@@ -89,6 +89,23 @@ var helpers = {
 
     },
 
+    teaPageEnterAnimation: function(){
+    	
+    	//default
+    	// $("#searchWrapper").hide();
+    	// $("#teaPage").show();
+
+	    // Animation Test #1
+	    
+	    console.log("+Animation Test 1")
+	    // $("#teaPage").addClass("hideRight");
+	    $("#teaPage").css("z-index",3)
+	    $("#teaPage").show();
+	    $("#teaPage").addClass("fadeInRight");
+
+
+    },
+
     renderTeaPage: function(currTeaRowEle, currTeaResults){
 	//maintains and updates tea page UI
 	//callback for teaRow clicks
@@ -127,8 +144,10 @@ var helpers = {
     	var windowHeight = window.innerHeight;
 	    $("html").height(windowHeight);
 
-	    $("#searchWrapper").hide();
-	    $("#teaPage").show();
+	    
+
+	    helpers.teaPageEnterAnimation();
+	    
 
 	    var teaRowIDX = currTeaRowEle.getAttribute("data-idx");
 	    // var teaRowIDX = teaRowEleData.idx;

@@ -101,12 +101,13 @@ body {
   display: inline-block;
   margin-right: 6%;
   margin-bottom: 4%;
+  width: auto;
 }
 .tag span {
   opacity: 0.8;
 }
 .tagText {
-  margin-right: 14px;
+  margin-right: 12px;
   display: inline-block;
   transform: translateY(-10%);
   -webkit-transform: translateY(-10%);
@@ -128,6 +129,7 @@ body {
   font-weight: 100;
 }
 .searchTag {
+  width: auto;
   height: 55%;
   display: inline-block;
   margin-left: 3%;
@@ -385,9 +387,25 @@ header {
   margin-right: auto;
   width: 99%;
 }
-@media all and (min-width: 600px) and (max-width: 1000px) {
+@media all and (min-width: 360px) and (max-width: 599px) {
+  .tag {
+    width: 72px;
+  }
+}
+@media all and (min-width: 1024px) {
+  .searchTag {
+    margin-top: 1%;
+  }
+}
+@media all and (min-width: 600px) {
   body {
     font-size: 18.9px;
+  }
+  .tag {
+    width: 110px;
+  }
+  .searchTag {
+    width: auto;
   }
   .tagText {
     font-size: 21.6px;
@@ -454,10 +472,5 @@ header {
   }
   .circleLink {
     font-size: 23.8px;
-  }
-}
-@media all and (min-width: 1001px) {
-  .searchTag {
-    margin-top: 1%;
   }
 }
