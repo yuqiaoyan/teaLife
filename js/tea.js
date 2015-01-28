@@ -115,52 +115,6 @@ ta.Tea.prototype.getFlavoredDescription = function(flavors) {
   return flavoredDescription;
 };
 
-/**
- * Generates the detail screen HTML for the tea.
- * @return {string} HTML to be used for the detail screen.
- */
-ta.Tea.prototype.generateDetailHtml = function() {
-  var category = this.category.replace('pu erh', 'pu\'er');
-  category = category.charAt(0).toUpperCase() + category.slice(1);
-
-  var steepInfoObj = helpers.parseSteepInfo(steepInfoString)
-  var steepTime = steepInfoObj.parsedSteepTime;
-  var steepDegrees = steepInfoObj.parsedSteepDegrees;
-
-  return '' +
-    '<div id="content">' +
-      '<div id="header">' + this.name + '</div>' +
-      '<div id="teaFactsWrapper" class="flex">' +
-        '<div id="teaFacts">' +
-          '<ul>' +
-            '<li>' +
-              '<span class="subhead">Type</span>' +
-              '<span class="teaValue">' + category + '</span>' +
-            '</li>' +
-            '<li>' +
-              '<span class="subhead">Temp</span>' +
-              '<span id="degrees" class="teaValue">' + steepDegrees + '</span>' +
-            '</li>' +
-            '<li>' +
-              '<span class="subhead">Time</span>' +
-              '<span class="teaValue">' + steepTime + '</span>' +
-            '</li>' +
-            '<li>' +
-              '<span class="subhead">Steeps</span>' +
-              '<span class="teaValue">' + steepNumber + '</span>' +
-            '</li>' +
-          '</ul>' +
-        '</div>' +
-        '<div id="teaThumbnailWrapper">' +
-          '<img id="thumbnail" src="' + this.imageUrl.substring(1) + '">' +
-          '<a href="#">Buy ' + this.name + ' Here</a>' +
-        '</div>' +
-      '</div>' +
-      '<div id="teaDescription">' +
-        '<p>' + this.getFlavoredDescription(this.flavors) + '</p>' +
-      '</div>' +
-    '</div>';
-};
 
 
 // ---------------------------------------------------------------------------
@@ -513,403 +467,494 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
  * Renders pages for tea app [initial search, search results, tea page]
  */
 
- ta.LayoutPages = function(){
-
-    helpers.renderFilters($("#categoryFilter"), ta.Catalog.CATEGORIES, "category");
-    helpers.renderFilters($("#flavorFilter"), ta.Catalog.FLAVORS,"flavor");
-
-    //set height of HTML elements based on device size
-    var windowWidth = $(window).width(),
+ ta.LayoutPages = {
+    configs: {
+      maxWords : null,
+      maxDescriptionChars : null,
+      thumbnailHeight: null
+    },
+    updateForWindowSize: function(){
+      
+      //set height of HTML elements based on device size
+      var windowWidth = $(window).width(),
         searchInputHeight = $("#searchInput").height(),
-        searchTagHeight = searchInputHeight*.55,
-        tagHeight = $(".tag").height(),
-        thumbnailHeight = .3*windowWidth; //will need a generalized solution for different sized source tea images
-    
-    var maxWords, maxDescriptionChars;
+        searchTagHeight =   searchInputHeight*.55,
+        tagHeight = $(".tag").height();
+      
+      this.configs.thumbnailHeight = .3*windowWidth; //will need a generalized solution for different sized source tea images
+      
+      // var maxWords, maxDescriptionChars;
 
-    if(windowWidth < 600){
-      maxWords = 16;
-      maxDescriptionChars = 100;
-    }
-    else{
-      maxWords = 25;
-      maxDescriptionChars = 300;
-    }
+      if(windowWidth < 600){
+        this.configs.maxWords = 16;
+        this.configs.maxDescriptionChars = 100;
+      }
+      else{
+        this.configs.maxWords = 25;
+        this.configs.maxDescriptionChars = 300;
+      }
 
-    //tuning for animations
-    var animationDuration = 380;
-    var animationLongDuration = 500;
+    },
 
-    //create an empty query
-    var teaQuery = new ta.Query();
-    
+    //renders the category and flavor filters in the default search screen 
+    renderFilters: function($FilterDiv, listFilters,classTag){
+      var filterLength = listFilters.length
 
-    //attach onClick functions for tags, teaRows, timer, chevron, etc
-    
-    (function(){
+      function renderTag(tagText){
+        //generate HTML for a single tag
+        var currTagDiv = document.createElement("div");
+        currTagDiv.className = "tag " + classTag;
+        currTagDiv.setAttribute('data-filter', classTag);
+        currTagDiv.setAttribute('data-id', classTag + ":" + tagText);
+        currTagDiv.setAttribute('data-name',tagText);
+
+        var currTagSpan = document.createElement("span");
+        currTagSpan.className = "tagText"
+        var content = document.createTextNode(tagText);
+        currTagSpan.appendChild(content);
+
+
+        var currAddIcon = document.createElement("span");
+        currAddIcon.className = "addIcon";
+        var icon = document.createTextNode("+");
+        currAddIcon.appendChild(icon);
+
+        currTagDiv.appendChild(currTagSpan);
+        currTagDiv.appendChild(currAddIcon);
+
+        return currTagDiv;
+      }
+
+      for(var i = 0; i < listFilters.length; i++){
+
+          var currTagDiv = renderTag(listFilters[i]);
+          $FilterDiv.append(currTagDiv);
+      }
+
+    },
+
+    animateTeaPageEntry: function(){
+    //animation for transition from tea search result item to the tea page
+      
+      //default
+      // $("#searchWrapper").hide();
+      // $("#teaPage").show();
+
+      // Animation Test #1
+      console.log("+Animation Test 1")
+      $("#teaPage").css("z-index",3)
+      $("#teaPage").show();
+      $("#teaPage").addClass("fadeInRight");
+
+
+    },
+
+    renderTeaPage: function(currTeaRowEle, currTeaResults){
+    //maintains and updates tea page UI
+    //callback for teaRow clicks
+
+        var teaPage = {
+          currTea: null,
+          set:function(tea){
+            currTea = tea;
+
+            var steepInfoObj = helpers.parseSteepInfo(tea.steepInfo)
+            var steepTime = steepInfoObj.parsedSteepTime;
+            var steepDegrees = steepInfoObj.parsedSteepDegrees;
+
+            var $teaFacts = $("#teaFacts ul li span:nth-child(2)");
+
+            $teaFacts[0].innerHTML = currTea.category;
+            $teaFacts[1].innerHTML = steepDegrees;
+            // "<sup class='units'> ~ </sup>" 
+            $teaFacts[2].innerHTML = steepTime[0] + "<span class = 'units'> min </span>";
+
+            $(".headerTitle").html(tea.name);
+            $("#teaFactsWrapper").css("background-image", "url(./" + tea.imageUrl + ")");
+            // $("#teaFactsWrapper").css("background-image", "url(" + tea.imageUrl + ")");
+            $("#teaDescription").html(tea.description);
+            $(".buy-link").html("Buy " + tea.name + " Here")
+            $(".buy-link").attr("href","http://www.adagio.com" + tea.url);
+
+            $("#timerButton").data("time",steepTime[0]);
+
+          },
+          get:function(){
+            return(currTea);
+          }
+        };   
+
+        var windowHeight = window.innerHeight;
+        $("html").height(windowHeight);
 
         
 
-      function generateTeaRowHTML(aTea, idx){
-              var shortDescriptionIDX = aTea.description.indexOf(".");
-              var shortDescription = aTea.description; //set to first sentence
-              var numWords = shortDescription.split(" ");
-              var firstSentence = aTea.description.substring(0,shortDescriptionIDX + 1);
+        ta.LayoutPages.animateTeaPageEntry();
+        
 
-              if(firstSentence.length < maxDescriptionChars){
-                shortDescription = firstSentence;
-              }
-              else if(numWords.length > maxWords){
-                shortDescription = ""
-                for(var i = 0; i < maxWords; i++){
-                  shortDescription += numWords[i]
+        var teaRowIDX = currTeaRowEle.getAttribute("data-idx");
+        var tempTea = currTeaResults[teaRowIDX];
+        teaPage.set(tempTea);
 
-                  if(i < maxWords-1)
-                    shortDescription += " ";
-                }
-                //shortDescription = aTea.description.substring(0,maxDescriptionChars);
-                // shortDescription += "..."; //add ellipsis
-              }
-              else{
-                //do nothing
-              }
+        //update layout values to fit new content
+        var headerHeight = $("header").height();
+        var footerHeight = $("#timerButton").height();
 
-              return "" +
-                "<li class = 'teaRow flexBase' data-idx='" + idx + "'>" +
-               "<img src = '"  + aTea.thumbUrl + "'" + "class='thumbnail'>" +
-               "<div class = 'teaResult'>"+
-               "  <p class = 'teaResultName'>" + aTea.name + "</p>"+
-               "  <p class = 'teaResultPrice'> 10 &cent </p>"+
-               "  <div class = 'teaShortDescription'>" + shortDescription +"</div>"+
-                "</li>"
+        $("#teaContent").height(windowHeight - headerHeight - footerHeight - 12);
+        $("#teaContent").css("margin-top",headerHeight);
+        $("#timerButton").children(":first").css("height",footerHeight);
+
+        
+        //set the tea width
+        var teaFactsPaddingNum = $("body").width()*0.05 
+        var teaFactsPadding = teaFactsPaddingNum + "px";
+        $("#teaFacts ul").css("padding-left", teaFactsPadding)
+        $("#teaFacts ul").css("padding-right", teaFactsPadding)
+        $("#teaContent").show();
+        var teaValueWidths = $(".teaValue").map(function(){
+          return $(this).width();
+        }).get();
+        var contentWidth = Math.max.apply(Math, teaValueWidths);
+        $("#teaFacts").width(teaFactsPaddingNum*2 + contentWidth);
+
+    },
+
+    insertTagToSearch: function($tag){
+    //move the tag from its current filter to the search field 
+      $("#searchInput").append($tag);
+      $tag.addClass("hiddenTag");
+      $tag.addClass("searchTag");
+      $tag.children(":first").removeClass().addClass("searchTagText");
+      $tag.children(":last").removeClass().addClass("searchRemoveIcon");
+      $tag.children(":last").text("x");
+    },
+
+    removeTagFromSearch: function($searchTag){
+    //move tag from search field to its appropriate filter 
+      var filter = $searchTag.data("filter");
+
+      if(filter == "category"){
+        $("#categoryFilter").append($searchTag);
+      }
+      else{
+        $("#flavorFilter").append($searchTag);
+      }
+
+      $searchTag.addClass("hiddenSearchTag");
+
+      $searchTag.removeClass('searchTag');
+      $searchTag.children(":first").removeClass("searchTagText");
+      $searchTag.children(":last").removeClass("searchRemoveIcon");
+
+      $searchTag.children(":first").addClass("tagText");
+      $searchTag.children(":last").addClass("addIcon")
+      $searchTag.children(":last").text("+");
+    },
+
+    animateTag: function($original, updateTag){
+    //animate the tag moving to and from the search field and the filter container
+      var temp = $original.clone().appendTo('body');
+        temp.css('position','fixed')
+          .css('left',$original.offset().left)
+          .css('top',$original.offset().top)
+          .css('height',$original.height())
+          .css('zIndex',3);
+
+        updateTag($original);
+
+        // get new tag layout info
+
+        var newTop = $original.offset().top,
+            newLeft = $original.offset().left,
+            newHeight = $original.height(),
+            newPadding = $original.css("padding-left");
+
+        // set the tag animation properties
+        var tagAnimationProperties = {
+          "top": newTop,
+          "left": newLeft,
+          "height": newHeight,
+          "padding-left": newPadding,
+          "padding-right": newPadding
+        };
+
+        var $tagText = $original.children(":first");
+
+        // get the text animation properties
+        var marginRight = $tagText.css("margin-right"),
+            fontSize = $tagText.css("font-size"),
+            transform = $tagText.css("transform");
+
+        var matrixToArray = function(str){
+          return str.match(/(-?[0-9\.]+)/g);
+        };
+
+        var translateY = matrixToArray(transform)[5];
+
+
+        var textAnimationProperties = {
+          "margin-right": marginRight,
+          "font-size": fontSize,
+          "transform": translateY,
+          "-webkit-transform": translateY
+        };
+
+
+        temp.animate(tagAnimationProperties, animationLongDuration,function(){
+          $original.removeClass("hiddenTag");
+          $original.removeClass("hiddenSearchTag");
+          temp.remove();
+        });
+
+        temp.children(":first").animate(textAnimationProperties, animationLongDuration);
+    },
+
+    generateTeaRowHTML: function(aTea, IDX){
+    // Creates the tea row HTML to insert into the search results
+    // @param aTea tea object for the tea row
+    //        IDX - the index saved in HTML data to find the tea later
+
+        var shortDescriptionIDX = aTea.description.indexOf(".");
+        var shortDescription = aTea.description; //set to first sentence
+        var numWords = shortDescription.split(" ");
+        var firstSentence = aTea.description.substring(0,shortDescriptionIDX + 1);
+
+        if(firstSentence.length < this.configs.maxDescriptionChars){
+          shortDescription = firstSentence;
         }
+        else if(numWords.length > maxWords){
+          shortDescription = ""
+          for(var i = 0; i < maxWords; i++){
+            shortDescription += numWords[i]
 
-        function renderTagUpdate($FilterDiv, remainingTags, type){
-                if(remainingTags.length > 0){
-                    //get all the tags from $FilterDiv
-
-                    var tagEles = $FilterDiv.children(".tag");
-                    for(var t = 0; t < tagEles.length; t++){
-                      var isRemaining = false;
-                      var tagName = tagEles[t].getAttribute('data-name');
-                      for(r in remainingTags){
-                        if(tagName == remainingTags[r].name){
-                          $(tagEles[t]).show();
-                          isRemaining = true;
-                          break;
-                        }
-                      }
-
-                      if(isRemaining == false){
-                        $(tagEles[t]).hide();
-                      }
-
-                    }
-
-                    $FilterDiv.show();
-                }
-                else{
-
-                  $FilterDiv.hide();
-                }
-        }
-
-        function updateTeaResults(){
-
-            var teaResults = teas.search(teaQuery);
-            console.log("teaResults")
-
-            //append tea results to #results
-            $("#resultSummary").html(teaResults.length + " teas match your taste");
-
-            $("#results").html("");
-
-            
-
-            for(var i = 0; i < teaResults.length; i++){
-              var teaRowLi = $("#results").append(generateTeaRowHTML(teaResults[i],i));
-              // teaRowLi.setAttribute('data-idx',i); //the index of where it exists in the rea result
-            }
-
-            //find the remaining tags to re render
-            var remainingTagResults = teas.getAvailableTags(teaQuery);
-            console.log(remainingTagResults)
-
-
-            renderTagUpdate($("#categoryFilter"), remainingTagResults.categories, "category")
-            renderTagUpdate($("#flavorFilter"), remainingTagResults.flavors, "flavor")
-
-            //attach click handlers to new tea results
-            $(".teaRow").click(function(){
-              var teaRowEle = $(this);
-              helpers.renderTeaPage(teaRowEle[0],teaResults);
-            });
-
-        }
-
-       $(".tag").click(function(){
-          var tagData = $(this).data();
-
-          //create a tag for updating our query
-          var temp = new ta.Tag(tagData.id, tagData.filter, tagData.name);
-          console.log("tag and temp data")
-          console.log(temp);
-
-          //assumes this is the first click
-          if($("#searchHint").is(':visible')){
-            $("#searchHint").hide();
-            $("#searchInput").css('text-align','left');
-            
-            $("#searchWrapper").animate({
-              top: "0"
-            },animationDuration,function(){
-              $("#searchWrapper").css('top',"0");
-              $("#searchWrapper").css('border-top',"none");
-            })
-            $("#searchWrapper").height("100%");
-            $("#searchWrapper").css("overflow","auto");
- 
-
-
-            $("#searchInput").append($(this));
-            $(this).addClass("searchTag");
-            $(this).children(":first").removeClass().addClass("searchTagText");
-            $(this).children(":last").removeClass().addClass("searchRemoveIcon");
-            $(this).children(":last").text("x");
-
-            $("#searchView").removeClass("flexColumn flexBase").addClass("unflex");
-            // $("#searchView").addClass("unflex")
-            //$("#searchView").css("display","block");
-
-            $(".teaResult").height(thumbnailHeight);
-            $("#resultsWrapper").show();
-            $("#teaOfDay").hide();
-
-            teaQuery.addTag(temp);
-
-            
-            
-            
-            
-
+            if(i < maxWords-1)
+              shortDescription += " ";
           }
-          //for all other clicks
+          //shortDescription = aTea.description.substring(0,maxDescriptionChars);
+          // shortDescription += "..."; //add ellipsis
+        }
+        else{
+          //do nothing
+        }
+
+        return "" +
+          "<li class = 'teaRow flexBase' data-idx='" + IDX + "'>" +
+         "<img src = '"  + aTea.thumbUrl + "'" + "class='thumbnail'>" +
+         "<div class = 'teaResult'>"+
+         "  <p class = 'teaResultName'>" + aTea.name + "</p>"+
+         "  <p class = 'teaResultPrice'> 10 &cent </p>"+
+         "  <div class = 'teaShortDescription'>" + shortDescription +"</div>"+
+          "</li>"
+    },
+
+    renderTagUpdate: function($FilterDiv, remainingTags, type){
+          if(remainingTags.length > 0){
+              //get all the tags from $FilterDiv
+
+              var tagEles = $FilterDiv.children(".tag");
+              for(var t = 0; t < tagEles.length; t++){
+                var isRemaining = false;
+                var tagName = tagEles[t].getAttribute('data-name');
+                for(r in remainingTags){
+                  if(tagName == remainingTags[r].name){
+                    $(tagEles[t]).show();
+                    isRemaining = true;
+                    break;
+                  }
+                }
+
+                if(isRemaining == false){
+                  $(tagEles[t]).hide();
+                }
+
+              }
+
+              $FilterDiv.show();
+          }
           else{
 
-            if($(this).children(":last").attr('class')=="addIcon"){
+            $FilterDiv.hide();
+          }
+    },
 
-              // var tagAnimationProperties = {},
-              //     textAnimationProperties = {};
+    updateTeaResults: function(){
+
+      var teaResults = teas.search(teaQuery);
+      console.log("teaResults")
+
+      //append tea results to #results
+      $("#resultSummary").html(teaResults.length + " teas match your taste");
+
+      $("#results").html("");
+
+      
+
+      for(var i = 0; i < teaResults.length; i++){
+        var teaRowLi = $("#results").append(this.generateTeaRowHTML(teaResults[i],i));
+        // teaRowLi.setAttribute('data-idx',i); //the index of where it exists in the rea result
+      }
+
+      //find the remaining tags to re render
+      var remainingTagResults = teas.getAvailableTags(teaQuery);
+      console.log(remainingTagResults)
+
+
+      this.renderTagUpdate($("#categoryFilter"), remainingTagResults.categories, "category")
+      this.renderTagUpdate($("#flavorFilter"), remainingTagResults.flavors, "flavor")
+
+      //attach click handlers to new tea results
+      $(".teaRow").click(function(){
+        var teaRowEle = $(this);
+        ta.LayoutPages.renderTeaPage(teaRowEle[0],teaResults);
+      });
+
+    },
+
+    run: function(){
+      this.renderFilters($("#categoryFilter"), ta.Catalog.CATEGORIES, "category");
+      this.renderFilters($("#flavorFilter"), ta.Catalog.FLAVORS,"flavor");
+
+      this.updateForWindowSize();
+      
+
+      //tuning for animations
+      var animationDuration = 380;
+      var animationLongDuration = 500;
+
+      //create an empty query
+      var teaQuery = new ta.Query();
+      
+
+      //attach onClick functions for tags, teaRows, timer, chevron, etc
+      
+      (function(){
+         $(".tag").click(function(){
+            var tagData = $(this).data();
+
+            //create a tag for updating our query
+            var temp = new ta.Tag(tagData.id, tagData.filter, tagData.name);
+            console.log("tag and temp data")
+            console.log(temp);
+
+            //assumes this is the first click
+            if($("#searchHint").is(':visible')){
+              $("#searchHint").hide();
+              $("#searchInput").css('text-align','left');
               
-              // var tagAnimationProperties = {
-              //   "height": searchTagHeight + "px",
-              //   "padding-left": paddingPX,
-              //   "padding-right": paddingPX
-              // };
-
-              // var textAnimationProperties = {
-              //   "margin-right": "8px",
-              //   "font-size":"10px",
-              //   "transform": "translateY('-30%'')",
-              //   "-webkit-transform": "translateY('-30%'')"
-              // };
+              $("#searchWrapper").animate({
+                top: "0"
+              },animationDuration,function(){
+                $("#searchWrapper").css('top',"0");
+                $("#searchWrapper").css('border-top',"none");
+              })
+              $("#searchWrapper").height("100%");
+              $("#searchWrapper").css("overflow","auto");
+   
 
 
-              animateTag($(this), insertTagToSearch);
-              // animateTag($(this), tagAnimationProperties, insertTagToSearch, textAnimationProperties);
+              $("#searchInput").append($(this));
+              $(this).addClass("searchTag");
+              $(this).children(":first").removeClass().addClass("searchTagText");
+              $(this).children(":last").removeClass().addClass("searchRemoveIcon");
+              $(this).children(":last").text("x");
+
+              $("#searchView").removeClass("flexColumn flexBase").addClass("unflex");
+              // $("#searchView").addClass("unflex")
+              //$("#searchView").css("display","block");
+
+              $(".teaResult").height(ta.LayoutPages.thumbnailHeight);
+              $("#resultsWrapper").show();
+              $("#teaOfDay").hide();
 
               teaQuery.addTag(temp);
-              
-              //remove the value from the CategoryFilter
-              // updateTeaResults();
-              
+            }
+            //for all other clicks
+            else{
+
+              if($(this).children(":last").attr('class')=="addIcon"){
+
+                this.animateTag($(this), this.insertTagToSearch);
+
+                teaQuery.addTag(temp);            
+
+              }
+
+              //remove tag from SearchInput
+              else{
+
+                teaQuery.removeTag(temp);
+
+                if(tagData.filter =="category"){
+                  $("#categoryFilter").show();
+                }
+                else{
+                  $("#flavorFilter").show();
+                }
+
+                this.animateTag($(this), ta.LayoutPages.removeTagFromSearch);
+
+              }
+
 
             }
 
-            //remove tag from SearchInput
-            else{
+            ta.LayoutPages.updateTeaResults();
 
-              teaQuery.removeTag(temp);
-
-              if(tagData.filter =="category"){
-                $("#categoryFilter").show();
+            if($("#categoryFilter").is(':visible') == true){
+                $("#flavorFilter").removeClass("addMarginTop");
               }
               else{
-                $("#flavorFilter").show();
+                $("#flavorFilter").addClass("addMarginTop");
               }
 
-              animateTag($(this), removeTagFromSearch);
-              
-
-              //if we are removing the last tag, return to defaultSearch View
-              // if($("#searchInput").children().length <= 1){
-              //   $("#searchHint").show();
-              //   $("#teaOfDay").show();
-              // }
-
-
-            }
-
-
-          }
-
-          updateTeaResults();
-
-          if($("#categoryFilter").is(':visible') == true){
-              $("#flavorFilter").removeClass("addMarginTop");
-            }
-            else{
-              $("#flavorFilter").addClass("addMarginTop");
-            }
 
 
 
-
-        });
-
-
-        function insertTagToSearch($tag){
-          $("#searchInput").append($tag);
-          $tag.addClass("hiddenTag");
-          $tag.addClass("searchTag");
-          $tag.children(":first").removeClass().addClass("searchTagText");
-          $tag.children(":last").removeClass().addClass("searchRemoveIcon");
-          $tag.children(":last").text("x");
-        }
-
-        function removeTagFromSearch($searchTag){
-          var filter = $searchTag.data("filter");
-
-          if(filter == "category"){
-            $("#categoryFilter").append($searchTag);
-          }
-          else{
-            $("#flavorFilter").append($searchTag);
-          }
-
-          $searchTag.addClass("hiddenSearchTag");
-
-          $searchTag.removeClass('searchTag');
-          $searchTag.children(":first").removeClass("searchTagText");
-          $searchTag.children(":last").removeClass("searchRemoveIcon");
-
-          $searchTag.children(":first").addClass("tagText");
-          $searchTag.children(":last").addClass("addIcon")
-          $searchTag.children(":last").text("+");
-        }
-
-        function animateTag($original, updateTag){
-          var temp = $original.clone().appendTo('body');
-            temp.css('position','fixed')
-              .css('left',$original.offset().left)
-              .css('top',$original.offset().top)
-              .css('height',$original.height())
-              .css('zIndex',3);
-
-            updateTag($original);
-
-            // get new tag layout info
-
-            var newTop = $original.offset().top,
-                newLeft = $original.offset().left,
-                newHeight = $original.height(),
-                newPadding = $original.css("padding-left");
-
-            // set the tag animation properties
-            var tagAnimationProperties = {
-              "top": newTop,
-              "left": newLeft,
-              "height": newHeight,
-              "padding-left": newPadding,
-              "padding-right": newPadding
-            };
-
-            var $tagText = $original.children(":first");
-
-            // get the text animation properties
-            var marginRight = $tagText.css("margin-right"),
-                fontSize = $tagText.css("font-size"),
-                transform = $tagText.css("transform");
-
-            var matrixToArray = function(str){
-              return str.match(/(-?[0-9\.]+)/g);
-            };
-
-            var translateY = matrixToArray(transform)[5];
-
-
-            var textAnimationProperties = {
-              "margin-right": marginRight,
-              "font-size": fontSize,
-              "transform": translateY,
-              "-webkit-transform": translateY
-            };
-
-
-            // textAnimationProperties = {
-
-            // }
-            // tagAnimationProperties["height"]= "21px";
-
-
-            temp.animate(tagAnimationProperties, animationLongDuration,function(){
-              $original.removeClass("hiddenTag");
-              $original.removeClass("hiddenSearchTag");
-              temp.remove();
-            });
-
-            temp.children(":first").animate(textAnimationProperties, animationLongDuration);
-        }
-
-             
-
-        
-
-        $("#timerButton").click(function(){
-          //set the circle width
-          var circleParentWidth = $("#time").width();
-          var circleSize = .56*circleParentWidth;
-
-          $("#circle").width(circleSize);
-          $("#circle").height($("#circle").width());
-
-          $("#timeCover").show();
-          $("#time").show(); //animate the button here
-
-          var steepTime = $("#timerButton").data("time");
-          var countdownString = steepTime + ":00"; 
-          $(".timerText").html(countdownString);
-
-          $(".circleLink").click(function(){
-            $(".timerText").html(countdownString);
-            console.log("+resetLink");
-            clearInterval(counter);
-            helpers.countdown(steepTime);
           });
 
-          helpers.countdown(steepTime);
+          $("#timerButton").click(function(){
+            //set the circle width
+            var circleParentWidth = $("#time").width();
+            var circleSize = .56*circleParentWidth;
+
+            $("#circle").width(circleSize);
+            $("#circle").height($("#circle").width());
+
+            $("#timeCover").show();
+            $("#time").show(); //animate the button here
+
+            var steepTime = $("#timerButton").data("time");
+            var countdownString = steepTime + ":00"; 
+            $(".timerText").html(countdownString);
+
+            $(".circleLink").click(function(){
+              $(".timerText").html(countdownString);
+              console.log("+resetLink");
+              clearInterval(counter);
+              helpers.countdown(steepTime);
+            });
+
+            helpers.countdown(steepTime);
+
+          });
+
+          $("#ic_close_24px").click(function(){
+              $("#timeCover").hide();
+              $("#time").hide();
+              clearInterval(counter);
+
+          });
+
+          $(".chevron").click(function(){
+            $("#teaPage").hide();
+            $("#searchWrapper").show();
+          })
 
 
-          
-          
-          
-        });
+      }());
 
-        $("#ic_close_24px").click(function(){
-            $("#timeCover").hide();
-            $("#time").hide();
-            clearInterval(counter);
-
-        });
-
-        $(".chevron").click(function(){
-          $("#teaPage").hide();
-          $("#searchWrapper").show();
-        })
-
-
-    }());
-
+  
+  }
  
 
 

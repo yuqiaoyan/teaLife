@@ -44,7 +44,7 @@ $(document).ready(function() {
   console.log('Document ready...');
   loadData('teas.json');
 
-  ta.LayoutPages();
+  ta.LayoutPages.run();
 
 
 
