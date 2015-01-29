@@ -783,7 +783,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
           }
     },
 
-    updateTeaResults: function(){
+    updateTeaResults: function(teaQuery){
 
       var teaResults = teas.search(teaQuery);
       console.log("teaResults")
@@ -902,7 +902,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
             }
 
-            ta.LayoutPages.updateTeaResults();
+            ta.LayoutPages.updateTeaResults(teaQuery);
 
             if($("#categoryFilter").is(':visible') == true){
                 $("#flavorFilter").removeClass("addMarginTop");
