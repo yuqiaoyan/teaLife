@@ -471,7 +471,9 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
     configs: {
       maxWords : null,
       maxDescriptionChars : null,
-      thumbnailHeight: null
+      thumbnailHeight: null,
+      animationDuration: 380,
+      animationLongDuration: 500
     },
     updateForWindowSize: function(){
       
@@ -479,6 +481,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
       var windowWidth = $(window).width(),
         searchInputHeight = $("#searchInput").height(),
         searchTagHeight =   searchInputHeight*.55,
+        searchTagMarginTop = (searchInputHeight-searchTagHeight)/2,
         tagHeight = $(".tag").height();
       
       this.configs.thumbnailHeight = .3*windowWidth; //will need a generalized solution for different sized source tea images
@@ -493,6 +496,8 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
         this.configs.maxWords = 25;
         this.configs.maxDescriptionChars = 300;
       }
+
+
 
     },
 
@@ -575,7 +580,8 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
             $("#teaDescription").html(tea.description);
             $(".buy-link").html("Buy " + tea.name + " Here")
             $(".buy-link").attr("href","http://www.adagio.com" + tea.url);
-
+            $("#buyTea").height($(".buy-link").height()-2);
+            $("#buyTea").attr("href","http://www.adagio.com" + tea.url);
             $("#timerButton").data("time",steepTime[0]);
 
           },
@@ -700,13 +706,13 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
         };
 
 
-        temp.animate(tagAnimationProperties, animationLongDuration,function(){
+        temp.animate(tagAnimationProperties, ta.LayoutPages.configs.animationLongDuration,function(){
           $original.removeClass("hiddenTag");
           $original.removeClass("hiddenSearchTag");
           temp.remove();
         });
 
-        temp.children(":first").animate(textAnimationProperties, animationLongDuration);
+        temp.children(":first").animate(textAnimationProperties, ta.LayoutPages.configs.animationLongDuration);
     },
 
     generateTeaRowHTML: function(aTea, IDX){
@@ -722,12 +728,12 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
         if(firstSentence.length < this.configs.maxDescriptionChars){
           shortDescription = firstSentence;
         }
-        else if(numWords.length > maxWords){
+        else if(numWords.length > this.configs.maxWords){
           shortDescription = ""
-          for(var i = 0; i < maxWords; i++){
+          for(var i = 0; i < this.configs.maxWords; i++){
             shortDescription += numWords[i]
 
-            if(i < maxWords-1)
+            if(i < this.configs.maxWords-1)
               shortDescription += " ";
           }
           //shortDescription = aTea.description.substring(0,maxDescriptionChars);
@@ -817,9 +823,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
       this.updateForWindowSize();
       
 
-      //tuning for animations
-      var animationDuration = 380;
-      var animationLongDuration = 500;
+      
 
       //create an empty query
       var teaQuery = new ta.Query();
@@ -843,7 +847,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
               
               $("#searchWrapper").animate({
                 top: "0"
-              },animationDuration,function(){
+              },ta.LayoutPages.configs.animationDuration,function(){
                 $("#searchWrapper").css('top',"0");
                 $("#searchWrapper").css('border-top',"none");
               })
@@ -873,7 +877,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
 
               if($(this).children(":last").attr('class')=="addIcon"){
 
-                this.animateTag($(this), this.insertTagToSearch);
+                ta.LayoutPages.animateTag($(this), ta.LayoutPages.insertTagToSearch);
 
                 teaQuery.addTag(temp);            
 
@@ -891,7 +895,7 @@ ta.Catalog.prototype.getAvailableTags = function(query) {
                   $("#flavorFilter").show();
                 }
 
-                this.animateTag($(this), ta.LayoutPages.removeTagFromSearch);
+                ta.LayoutPages.animateTag($(this), ta.LayoutPages.removeTagFromSearch);
 
               }
 

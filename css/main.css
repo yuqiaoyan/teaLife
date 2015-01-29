@@ -391,10 +391,8 @@ header {
   .tag {
     width: 72px;
   }
-}
-@media all and (min-width: 1024px) {
   .searchTag {
-    margin-top: 1%;
+    width: auto;
   }
 }
 @media all and (min-width: 600px) {
@@ -406,6 +404,7 @@ header {
   }
   .searchTag {
     width: auto;
+    margin-top: 1.5%;
   }
   .tagText {
     font-size: 21.6px;
@@ -415,9 +414,6 @@ header {
   }
   .searchTagText {
     font-size: 16px;
-  }
-  .searchTag {
-    margin-top: 1.5%;
   }
   .searchRemoveIcon {
     font-size: 18px;
@@ -437,6 +433,9 @@ header {
     line-height: 40px;
     font-size: 21.6px;
     vertical-align: middle;
+    -webkit-flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-align-items: baseline;
   }
   #resultSummary {
     font-size: 18.9px;
@@ -472,5 +471,10 @@ header {
   }
   .circleLink {
     font-size: 23.8px;
+  }
+}
+@media all and (min-width: 1024px) {
+  .searchTag {
+    margin-top: 1%;
   }
 }

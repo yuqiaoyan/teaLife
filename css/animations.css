@@ -12,22 +12,25 @@
 }
 
 .button-color:active{
-	background-color: #9AEA6B;
+	background-color: #3E8802;
 }
 
 #ic_close_24px:active{
-
+	/*background-color: #3E8802;*/
+	fill: #3E8802;
+  	fill-opacity: 1;
 }
 
-.chevron:active{
-
-}
+/*.chevron:active{
+	background-color: #3E8802;
+	
+}*/
 
 
 .fadeInRight{
-	animation-duration: 1s;
+	animation-duration: 300ms;
 
-	-webkit-animation-duration: 1s;
+	-webkit-animation-duration: 300ms;
 	-webkit-animation-name: fadeInRight;
     animation-name: fadeInRight;
 }
@@ -66,9 +69,9 @@
 }
 
 .slideInTop{
-	animation-duration: 1s;
+	animation-duration: 300ms;
 
-	-webkit-animation-duration: 1s;
+	-webkit-animation-duration: 300ms;
 	-webkit-animation-name: slideInTop;
     animation-name: slideInTop;
 }

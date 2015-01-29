@@ -76,11 +76,16 @@
 .chevron:before {
     right:0;
     border-width:.4em 0 .4em .4em;
-    border-color:transparent transparent transparent black;    
+    border-color:transparent transparent transparent #7CC352;    
 }
 .chevron:after {
     left:0;
     border-width:.4em 0 .4em .4em;
     border-color:transparent transparent transparent #fff;    
+}
+
+#buyTea{
+	float: left;
+	padding-right: 1%;
 }
 
